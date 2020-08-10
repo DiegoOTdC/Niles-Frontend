@@ -1,8 +1,14 @@
 import React from "react";
 import { Button, TouchableWithoutFeedback, View, Text } from "react-native";
 
-export default function HomeButton({ title, onPress, backgroundColor }) {
-  console.log(backgroundColor);
+export default function HomeButton({
+  title,
+  onPress,
+  backgroundColor,
+  color,
+  font,
+}) {
+  console.log(font);
   return (
     <TouchableWithoutFeedback
       onPressIn={(e) => {
@@ -26,9 +32,9 @@ export default function HomeButton({ title, onPress, backgroundColor }) {
         <Text
           style={{
             top: "35%",
-            color: "black",
+            color: color,
             fontSize: 18,
-            fontWeight: "bold",
+            fontFamily: font,
           }}
         >
           {title}

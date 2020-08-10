@@ -2,27 +2,45 @@ import React from "react";
 import { Text, View, Button } from "react-native";
 import HomeButton from "../../components/HomeButton";
 
-export default function HomeScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-      }}
-    >
-      <HomeButton
-        style={{ justifyContent: "top" }}
-        title="Scan Image"
-        onPress=""
-        backgroundColor="#b3d89cff"
-      />
+import { AppLoading } from "expo";
+import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
+import { Alata_400Regular } from "@expo-google-fonts/alata";
+import { AlfaSlabOne_400Regular } from "@expo-google-fonts/alfa-slab-one";
 
-      <HomeButton
-        style={{ justifyContent: "top" }}
-        title="Scan Barcode"
-        onPress=""
-        backgroundColor="#3b7080ff"
-      />
-    </View>
-  );
+export default function HomeScreen({ navigation }) {
+  const [fontsLoaded] = useFonts({
+    Inter_900Black,
+    Alata_400Regular,
+    AlfaSlabOne_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+        }}
+      >
+        <HomeButton
+          style={{ justifyContent: "top" }}
+          title="Scan Image"
+          onPress={() => navigation.navigate("HomeScreen")}
+          backgroundColor="#b3d89cff"
+          color="#3b7080ff"
+          font="AlfaSlabOne_400Regular"
+        />
+        <HomeButton
+          style={{ justifyContent: "top" }}
+          title="Scan Barcode"
+          onPress={() => navigation.navigate("HomeScreen")}
+          backgroundColor="#3b7080ff"
+          color="#b3d89cff"
+          font="AlfaSlabOne_400Regular"
+        />
+      </View>
+    );
+  }
 }

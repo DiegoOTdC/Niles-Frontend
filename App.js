@@ -5,7 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import Camera from "./src/screens/Camera";
-console.log("store", store);
+import Preview from "./src/screens/preview";
+
 const Stack = createStackNavigator();
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="Camera" component={Camera} />
+          <Stack.Screen name="Preview" component={Preview} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

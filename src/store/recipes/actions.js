@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server = "https://192.168.178.87:4000";
+const server = "http://192.168.178.87:4000";
 
 export const getRecipes = (imageUri) => {
   console.log("imageUri in actions", imageUri);

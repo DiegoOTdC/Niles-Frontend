@@ -28,14 +28,31 @@ export default function index({ route, navigation }) {
             backgroundColor: "white",
           }}
         >
-          <Text style={{ alignSelf: "center" }}>
-            Is the picture clear enough?
-          </Text>
-          <Button
-            style={{ width: "50%" }}
-            title="TRY AGAIN"
-            onPress={() => navigation.navigate("Camera")}
-          />
+          <View
+            style={{
+              justifyContent: "center",
+              alignSelf: "center",
+            }}
+          >
+            <Text>Is the picture clear?</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              justifyContent: "center",
+              justifyContent: "space-around",
+            }}
+          >
+            <Button
+              title="TRY AGAIN"
+              onPress={() => navigation.navigate("Camera")}
+            />
+            <Button
+              title="NILES FETCH RECIPES!"
+              onPress={() => navigation.navigate("Recipes", { imageUri })}
+            />
+          </View>
         </View>
       </ImageBackground>
     </View>

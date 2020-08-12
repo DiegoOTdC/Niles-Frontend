@@ -28,15 +28,12 @@ export default function App({ route, navigation }) {
     if (this.camera) {
       try {
         let image = await this.camera.takePictureAsync();
-        console.log("image in camera", image);
-        console.log("imageuri in camera", image.uri);
         const imageUri = image.uri;
-        console.log("IMAGEURI", imageUri);
+        dispatch(getRecipes(imageUri));
 
         if (imageUri) {
           navigation.navigate("Preview", { imageUri });
         }
-        // dispatch(getRecipes("image.uri"));
       } catch (e) {
         console.log("error:", e.message);
       }

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
+import { useDispatch } from "react-redux";
+import { getRecipes } from "../../store/recipes/actions";
 
 export default function App() {
+  const dispatch = useDispatch();
+  console.log("getrcipes", getRecipes());
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-
-  const flashAuto = Camera.Constants.FlashMode.auto;
 
   useEffect(() => {
     (async () => {
@@ -24,9 +26,15 @@ export default function App() {
 
   const snap = async () => {
     if (this.camera) {
-      let photo = await this.camera.takePictureAsync();
-      console.log("Typeof photo", typeof photo);
-      console.log("photo", photo.uri);
+      try {
+        let image = await this.camera.takePictureAsync();
+        console.log("image in camera", image);
+        console.log("imageuri in camera", image.uri);
+
+        dispatch(getRecipes("image.uri"));
+      } catch (e) {
+        console.log("error:", e.message);
+      }
     }
   };
 
@@ -35,7 +43,7 @@ export default function App() {
       <Camera
         style={{ flex: 1 }}
         type={type}
-        flashMode={flashAuto}
+        flashMode={Camera.Constants.FlashMode.auto}
         ref={(ref) => {
           this.camera = ref;
         }}

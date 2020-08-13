@@ -3,10 +3,10 @@ import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { useDispatch } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
+import * as firebase from "firebase";
 
 export default function App({ route, navigation }) {
   const dispatch = useDispatch();
-  console.log("getrcipes", getRecipes());
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -27,17 +27,50 @@ export default function App({ route, navigation }) {
   const snap = async () => {
     if (this.camera) {
       try {
-        let image = await this.camera.takePictureAsync();
+        const image = await this.camera.takePictureAsync();
         const imageUri = image.uri;
         dispatch(getRecipes(imageUri));
+        console.log("image", image);
 
         if (imageUri) {
-          navigation.navigate("Preview", { imageUri });
+          this.uploadImage(imageUri, "test-image2")
+            .then(() => {
+              console.log("Success!");
+              const imageRef = firebase
+                .storage()
+                .ref()
+                .child("images/" + "test-image2");
+              imageRef
+                .getDownloadURL()
+                .then((url) => console.log("this is the download url", url))
+                .catch((e) =>
+                  console.log("getting downloadURL of image error", e.message)
+                );
+            })
+            .catch((e) => {
+              console.log(e.message);
+            });
         }
+
+        // if (imageUri) {
+        //   navigation.navigate("Preview", { imageUri });
+        // }
       } catch (e) {
         console.log("error:", e.message);
       }
     }
+  };
+
+  //upload image to firebase
+  uploadImage = async (uri, imageName) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const ref = firebase
+      .storage()
+      .ref()
+      .child("images/" + imageName);
+
+    return ref.put(blob);
   };
 
   return (

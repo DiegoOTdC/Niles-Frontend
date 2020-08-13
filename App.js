@@ -7,6 +7,20 @@ import HomeScreen from "./src/screens/HomeScreen";
 import Camera from "./src/screens/Camera";
 import Preview from "./src/screens/preview";
 import Recipes from "./src/screens/Recipes";
+import * as firebase from "firebase";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAm0BbCJAo1vuJ-G_eS8pORPJX4N9MO7-E",
+  authDomain: "niles-tdms.firebaseapp.com",
+  databaseURL: "https://niles-tdms.firebaseio.com/",
+  projectId: "niles-tdms",
+  storageBucket: "gs://niles-tdms.appspot.com",
+  messagingSenderId: "221952632429",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const Stack = createStackNavigator();
 

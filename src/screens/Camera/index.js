@@ -29,7 +29,7 @@ export default function App({ route, navigation }) {
       try {
         const image = await this.camera.takePictureAsync();
         const imageUri = image.uri;
-        dispatch(getRecipes(imageUri));
+        // dispatch(getRecipes(imageUri));
         console.log("image", image);
 
         if (imageUri) {
@@ -42,7 +42,7 @@ export default function App({ route, navigation }) {
                 .child("images/" + "test-image2");
               imageRef
                 .getDownloadURL()
-                .then((url) => console.log("this is the download url", url))
+                .then((url) => dispatch(getRecipes(url)))
                 .catch((e) =>
                   console.log("getting downloadURL of image error", e.message)
                 );

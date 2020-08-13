@@ -9,6 +9,9 @@ export const getRecipes = (imageUri) => {
     const response = await axios.post(`${server}/recipes`, {
       imageUri,
     });
-    console.log("response", response);
+    console.log(
+      "response in actions!",
+      response.data.recipes.map((rec) => rec.calories)
+    );
   };
 };

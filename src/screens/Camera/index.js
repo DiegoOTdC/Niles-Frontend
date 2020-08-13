@@ -28,12 +28,12 @@ export default function App({ route, navigation }) {
     if (this.camera) {
       try {
         const image = await this.camera.takePictureAsync();
-        const imageUri = image.uri;
-        // dispatch(getRecipes(imageUri));
+        const imageUrl = image.uri;
+        // dispatch(setImageUri(imageUrl));
         console.log("image", image);
 
-        if (imageUri) {
-          this.uploadImage(imageUri, "test-image2")
+        if (imageUrl) {
+          this.uploadImage(imageUrl, "test-image2")
             .then(() => {
               console.log("Success!");
               const imageRef = firebase

@@ -9,10 +9,11 @@ export const fetchRecipes = (recipes) => ({
   payload: recipes,
 });
 
-export const getRecipes = (imageUrl) => {
+export const getRecipes = (foodLabel) => {
+  console.log("foodlable inside getRecipes action", foodLabel);
   return async (dispatch, getState) => {
     const response = await axios.post(`${server}/recipes`, {
-      imageUrl,
+      foodLabel,
     });
 
     dispatch(fetchRecipes(response.data));

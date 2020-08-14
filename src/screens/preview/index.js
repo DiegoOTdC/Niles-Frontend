@@ -1,13 +1,17 @@
 import React from "react";
 import { Text, View, ImageBackground, Button } from "react-native";
 import * as firebase from "firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
+import { selectLabels } from "../../store/labels/selectors";
 
 export default function index({ route, navigation }) {
   console.log("route", route);
   const imageUri = route.params;
   console.log("imageURI", imageUri);
+
+  const labels = useSelector(selectLabels);
+  console.log("these are the labels in preview", labels);
 
   const dispatch = useDispatch();
   // const imageUrl = useSelector(selectImageUrl);

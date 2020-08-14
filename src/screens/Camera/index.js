@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Camera } from "expo-camera";
 import { useDispatch } from "react-redux";
 import { fetchLabels } from "../../store/labels/actions";
@@ -9,6 +9,7 @@ export default function App({ route, navigation }) {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -43,7 +44,9 @@ export default function App({ route, navigation }) {
                 .child("images/" + "test-image2");
               imageRef
                 .getDownloadURL()
-                .then((url) => dispatch(fetchLabels(url)))
+                .then((url) => {
+                  dispatch(fetchLabels(url));
+                })
                 .then(() => navigation.navigate("Preview", imageUri))
                 .catch((e) =>
                   console.log("getting downloadURL of image error", e.message)
@@ -65,6 +68,7 @@ export default function App({ route, navigation }) {
 
   //upload image to firebase
   uploadImage = async (uri, imageName) => {
+    setLoading(true);
     const response = await fetch(uri);
     const blob = await response.blob();
     const ref = firebase
@@ -75,58 +79,76 @@ export default function App({ route, navigation }) {
     return ref.put(blob);
   };
 
-  return (
-    <View style={{ flex: 1 }}>
-      <Camera
-        style={{ flex: 1 }}
-        type={type}
-        flashMode={Camera.Constants.FlashMode.auto}
-        ref={(ref) => {
-          this.camera = ref;
+  console.log("is it loading?", loading);
+
+  if (loading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          backgroundColor: "#5d3a00ff",
         }}
       >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "transparent",
-            flexDirection: "row",
+        <Text style={{ color: "#b3d89cff" }}>Niles: </Text>
+        <Text style={{ color: "#b3d89cff" }}>"Going as fast as I can.."</Text>
+        <ActivityIndicator size="large" color="#b3d89cff" />
+      </View>
+    );
+  } else {
+    return (
+      <View style={{ flex: 1 }}>
+        <Camera
+          style={{ flex: 1 }}
+          type={type}
+          flashMode={Camera.Constants.FlashMode.auto}
+          ref={(ref) => {
+            this.camera = ref;
           }}
         >
-          <TouchableOpacity
+          <View
             style={{
-              flex: 0.1,
-              alignSelf: "flex-end",
-              alignItems: "center",
-            }}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
+              flex: 1,
+              backgroundColor: "transparent",
+              flexDirection: "row",
             }}
           >
-            <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-              {" "}
-              Flip{" "}
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flex: 0.1,
+                alignSelf: "flex-end",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setType(
+                  type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+                );
+              }}
+            >
+              <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
+                {" "}
+                Flip{" "}
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: "center",
-              alignItems: "center",
-            }}
-            onPress={snap}
-          >
-            <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-              {" "}
-              [SCAN IMAGE]{" "}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
-    </View>
-  );
+            <TouchableOpacity
+              style={{
+                flex: 0.1,
+                alignSelf: "center",
+                alignItems: "center",
+              }}
+              onPress={snap}
+            >
+              <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
+                {" "}
+                [SCAN IMAGE]{" "}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Camera>
+      </View>
+    );
+  }
 }

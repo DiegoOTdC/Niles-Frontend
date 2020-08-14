@@ -58,10 +58,15 @@ const styles = StyleSheet.create({
   recipeCard: {
     flex: 0.5,
     backgroundColor: "#a53f2bff",
-    margin: 5,
-    height: 200,
+    margin: 10,
   },
   image: { width: "100%", height: 150 },
   touch: { backgroundColor: "#b3d89cff", width: "50%" },
-  title: { fontFamily: "AlfaSlabOne_400Regular", fontSize: 20, color: "white" },
+  title: {
+    alignSelf: "center",
+    fontFamily: "AlfaSlabOne_400Regular",
+    fontSize: 20,
+    color: "white",
+    padding: 10,
+  },
 });

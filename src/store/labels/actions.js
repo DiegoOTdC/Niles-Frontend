@@ -10,12 +10,10 @@ export const setLabels = (labels) => ({
 });
 
 export const fetchLabels = (imageUrl) => {
-  console.log("in fetchLabels action, is this the imageUrl?", imageUrl);
   return async (dispatch, getState) => {
     const response = await axios.post(`${server}/analyse`, {
       imageUrl,
     });
-    console.log("Did we get the labels response?", response.data);
     dispatch(setLabels(response.data));
   };
 };

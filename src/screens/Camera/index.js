@@ -5,11 +5,15 @@ import { useDispatch } from "react-redux";
 import { fetchLabels } from "../../store/labels/actions";
 import * as firebase from "firebase";
 
-export default function App({ route, navigation }) {
+export default function App({ navigation }) {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [navigation]);
 
   useEffect(() => {
     (async () => {
@@ -30,9 +34,6 @@ export default function App({ route, navigation }) {
       try {
         const image = await this.camera.takePictureAsync();
         const imageUri = image.uri;
-        console.log("ImageURL in camera", imageUri);
-        // dispatch(setImageUrl(imageUrl));
-        // console.log("image", image);
 
         if (imageUri) {
           this.uploadImage(imageUri, "test-image2")
@@ -47,6 +48,7 @@ export default function App({ route, navigation }) {
                 .then((url) => {
                   dispatch(fetchLabels(url));
                 })
+                .then(() => setLoading(false))
                 .then(() => navigation.navigate("Preview", imageUri))
                 .catch((e) =>
                   console.log("getting downloadURL of image error", e.message)
@@ -56,10 +58,6 @@ export default function App({ route, navigation }) {
               console.log(e.message);
             });
         }
-
-        // if (imageUri) {
-        //   navigation.navigate("Preview", imageUri);
-        // }
       } catch (e) {
         console.log("error:", e.message);
       }
@@ -75,11 +73,8 @@ export default function App({ route, navigation }) {
       .storage()
       .ref()
       .child("images/" + imageName);
-
     return ref.put(blob);
   };
-
-  console.log("is it loading?", loading);
 
   if (loading) {
     return (

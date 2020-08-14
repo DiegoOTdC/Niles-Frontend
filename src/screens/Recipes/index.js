@@ -14,7 +14,6 @@ import { AppLoading } from "expo";
 
 export default function Recipes({ route, navigation }) {
   const recipes = useSelector(selectRecipes);
-  console.log("what is recipes?", recipes.length);
 
   if (!recipes) {
     return <AppLoading />;

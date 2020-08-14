@@ -8,6 +8,7 @@ import Camera from "./src/screens/Camera";
 import Preview from "./src/screens/preview";
 import Recipes from "./src/screens/Recipes";
 import * as firebase from "firebase";
+import { YellowBox } from "react-native";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAm0BbCJAo1vuJ-G_eS8pORPJX4N9MO7-E",
@@ -25,6 +26,7 @@ if (!firebase.apps.length) {
 const Stack = createStackNavigator();
 
 function App() {
+  YellowBox.ignoreWarnings(["Setting a timer"]);
   return (
     <Provider store={store}>
       <NavigationContainer>

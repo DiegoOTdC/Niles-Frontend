@@ -10,7 +10,6 @@ export const fetchRecipes = (recipes) => ({
 });
 
 export const getRecipes = (foodLabel) => {
-  console.log("foodlable inside getRecipes action", foodLabel);
   return async (dispatch, getState) => {
     const response = await axios.post(`${server}/recipes`, {
       foodLabel,

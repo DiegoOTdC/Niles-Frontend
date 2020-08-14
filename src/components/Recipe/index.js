@@ -8,8 +8,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import placeholder from "../../images/placeholder.png";
+import { AppLoading } from "expo";
+import {
+  useFonts,
+  AlfaSlabOne_400Regular,
+} from "@expo-google-fonts/alfa-slab-one";
 
 export default function Recipe(prop) {
+  const [fontsLoaded] = useFonts({
+    AlfaSlabOne_400Regular,
+  });
+
   const {
     title,
     image,
@@ -28,29 +37,31 @@ export default function Recipe(prop) {
     totalWeight,
   } = prop;
 
-  console.log("this is in the image", image);
-
-  return (
-    <TouchableOpacity style={styles.touch}>
-      <View style={styles.recipeCard}>
-        <Image
-          style={styles.image}
-          source={{ uri: image ? image : placeholder }}
-        />
-        <Text style={styles.title}>{title}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <TouchableOpacity style={styles.touch}>
+        <View style={styles.recipeCard}>
+          <Image
+            style={styles.image}
+            source={{ uri: image ? image : placeholder }}
+          />
+          <Text style={styles.title}>{title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   recipeCard: {
-    backgroundColor: "green",
-    width: "50%",
-    marginBottom: 10,
-    flexDirection: "column",
+    flex: 0.5,
+    backgroundColor: "#a53f2bff",
+    margin: 5,
+    height: 200,
   },
-  image: { width: 100, height: 100 },
-  touch: { backgroundColor: "#DDDDDD" },
-  title: {},
+  image: { width: "100%", height: 150 },
+  touch: { backgroundColor: "#b3d89cff", width: "50%" },
+  title: { fontFamily: "AlfaSlabOne_400Regular", fontSize: 20, color: "white" },
 });

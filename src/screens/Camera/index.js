@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
-import { useDispatch } from "react-redux";
-import { getRecipes } from "../../store/recipes/actions";
-import * as firebase from "firebase";
 
 export default function App({ route, navigation }) {
-  const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -28,50 +24,52 @@ export default function App({ route, navigation }) {
     if (this.camera) {
       try {
         const image = await this.camera.takePictureAsync();
-        const imageUrl = image.uri;
-        // dispatch(setImageUri(imageUrl));
-        console.log("image", image);
+        const imageUri = image.uri;
+        console.log("ImageURL in camera", imageUri);
+        // dispatch(setImageUrl(imageUrl));
+        // console.log("image", image);
 
-        if (imageUrl) {
-          this.uploadImage(imageUrl, "test-image2")
-            .then(() => {
-              console.log("Success!");
-              const imageRef = firebase
-                .storage()
-                .ref()
-                .child("images/" + "test-image2");
-              imageRef
-                .getDownloadURL()
-                .then((url) => dispatch(getRecipes(url)))
-                .catch((e) =>
-                  console.log("getting downloadURL of image error", e.message)
-                );
-            })
-            .catch((e) => {
-              console.log(e.message);
-            });
-        }
-
-        // if (imageUri) {
-        //   navigation.navigate("Preview", { imageUri });
+        // if (imageUrl) {
+        //   this.uploadImage(imageUrl, "test-image2")
+        //     .then(() => {
+        //       console.log("Success!");
+        //       const imageRef = firebase
+        //         .storage()
+        //         .ref()
+        //         .child("images/" + "test-image2");
+        //       imageRef
+        //         .getDownloadURL()
+        //         .then((url) => dispatch(setImageUrl(url)))
+        //         .then(() => navigation.navigate("Preview"))
+        //         .catch((e) =>
+        //           console.log("getting downloadURL of image error", e.message)
+        //         );
+        //     })
+        //     .catch((e) => {
+        //       console.log(e.message);
+        //     });
         // }
+
+        if (imageUri) {
+          navigation.navigate("Preview", imageUri);
+        }
       } catch (e) {
         console.log("error:", e.message);
       }
     }
   };
 
-  //upload image to firebase
-  uploadImage = async (uri, imageName) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    const ref = firebase
-      .storage()
-      .ref()
-      .child("images/" + imageName);
+  // //upload image to firebase
+  // uploadImage = async (uri, imageName) => {
+  //   const response = await fetch(uri);
+  //   const blob = await response.blob();
+  //   const ref = firebase
+  //     .storage()
+  //     .ref()
+  //     .child("images/" + imageName);
 
-    return ref.put(blob);
-  };
+  //   return ref.put(blob);
+  // };
 
   return (
     <View style={{ flex: 1 }}>

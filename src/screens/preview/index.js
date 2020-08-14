@@ -1,10 +1,58 @@
 import React from "react";
 import { Text, View, ImageBackground, Button } from "react-native";
+import * as firebase from "firebase";
+import { useDispatch } from "react-redux";
+import { getRecipes } from "../../store/recipes/actions";
 
 export default function index({ route, navigation }) {
   console.log("route", route);
-  const imageUri = route.params.imageUri;
+  const imageUri = route.params;
   console.log("imageURI", imageUri);
+
+  const dispatch = useDispatch();
+  // const imageUrl = useSelector(selectImageUrl);
+  // console.log("is this the imageUrl?", imageUrl);
+
+  function fetchRecipes(event, imageUri) {
+    event.persist();
+    console.log("imageUrl in fecth recipes", imageUri);
+
+    if (imageUri) {
+      this.uploadImage(imageUri, "test-image2")
+        .then(() => {
+          console.log("Success!");
+          const imageRef = firebase
+            .storage()
+            .ref()
+            .child("images/" + "test-image2");
+          imageRef
+            .getDownloadURL()
+            .then((url) => dispatch(getRecipes(url)))
+            .then(() => navigation.navigate("Recipes"))
+            .catch((e) =>
+              console.log("getting downloadURL of image error", e.message)
+            );
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    }
+
+    // dispatch(getRecipes(imageUrl));
+    // navigation.navigate("Recipes");
+  }
+
+  //upload image to firebase
+  uploadImage = async (uri, imageName) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const ref = firebase
+      .storage()
+      .ref()
+      .child("images/" + imageName);
+
+    return ref.put(blob);
+  };
 
   return (
     <View
@@ -50,7 +98,7 @@ export default function index({ route, navigation }) {
             />
             <Button
               title="NILES FETCH RECIPES!"
-              onPress={() => navigation.navigate("Recipes", { imageUri })}
+              onPress={(event) => fetchRecipes(event, imageUri)}
             />
           </View>
         </View>

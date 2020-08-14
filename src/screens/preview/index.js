@@ -120,12 +120,13 @@ export default function index({ route, navigation }) {
           backgroundColor: "white",
         }}
       >
+        <Text>Please select the label that fits your product best!</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {labels ? (
             labels.map((label) => {
               return (
                 <View
-                  key={label}
+                  key={label + Math.random()}
                   style={{ height: 50, backgroundColor: "orange", margin: 10 }}
                 >
                   <Button

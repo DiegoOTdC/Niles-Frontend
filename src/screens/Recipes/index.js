@@ -26,7 +26,7 @@ export default function Recipes({ route, navigation }) {
         renderItem={({ item }) => {
           return (
             <Recipe
-              key={Math.random()}
+              key={item.title}
               title={item.title}
               image={item.image}
               source={item.source}
@@ -45,6 +45,7 @@ export default function Recipes({ route, navigation }) {
             />
           );
         }}
+        keyExtractor={(item) => item.title + item.source}
       />
     );
   }

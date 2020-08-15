@@ -14,7 +14,7 @@ import {
   AlfaSlabOne_400Regular,
 } from "@expo-google-fonts/alfa-slab-one";
 
-export default function Recipe(prop) {
+export default function Recipe(props) {
   const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
   });
@@ -35,21 +35,24 @@ export default function Recipe(prop) {
     totalNutrients,
     totalDaily,
     totalWeight,
-  } = prop;
+  } = props;
 
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
-      <TouchableOpacity style={styles.touch}>
-        <View style={styles.recipeCard}>
-          <Image
-            style={styles.image}
-            source={{ uri: image ? image : placeholder }}
-          />
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      </TouchableOpacity>
+      // <TouchableOpacity
+      //   style={styles.touch}
+      //   onPress={() => navigation.navigate("RecipeDetails", props)}
+      // >
+      <View style={styles.recipeCard}>
+        <Image
+          style={styles.image}
+          source={{ uri: image ? image : placeholder }}
+        />
+        <Text style={styles.title}>{title}</Text>
+      </View>
+      // </TouchableOpacity>
     );
   }
 }

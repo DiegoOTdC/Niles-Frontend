@@ -1,11 +1,10 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 import placeholder from "../../images/placeholder.png";
 import {
   useFonts,
   AlfaSlabOne_400Regular,
 } from "@expo-google-fonts/alfa-slab-one";
-import Loading from "../Loading";
 
 export default function Recipe(props) {
   const [fontsLoaded] = useFonts({
@@ -31,7 +30,7 @@ export default function Recipe(props) {
   } = props;
 
   if (!fontsLoaded) {
-    return <Loading />;
+    return <ActivityIndicator color="#a53f2bff" />;
   } else {
     return (
       <View style={styles.recipeCard}>

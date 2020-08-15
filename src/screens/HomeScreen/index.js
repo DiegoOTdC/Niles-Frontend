@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
         <HomeButton
           style={{ justifyContent: "top" }}
           title="Scan Image"
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate("Camera")}
           backgroundColor="#b3d89cff"
           color="#3b7080ff"
           font="AlfaSlabOne_400Regular"

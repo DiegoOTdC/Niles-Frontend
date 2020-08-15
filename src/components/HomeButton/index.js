@@ -8,7 +8,6 @@ export default function HomeButton({
   color,
   font,
 }) {
-  console.log(font);
   return (
     <TouchableWithoutFeedback
       onPressIn={(e) => {

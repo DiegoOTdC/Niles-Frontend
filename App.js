@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import Camera from "./src/screens/Camera";
-import Preview from "./src/screens/preview";
+import Preview from "./src/screens/Preview";
 import Recipes from "./src/screens/Recipes";
 import RecipeDetails from "./src/screens/RecipeDetails";
 import * as firebase from "firebase";

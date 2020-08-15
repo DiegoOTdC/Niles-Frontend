@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
-  ImageBackground,
   Button,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
-import * as firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
 import { selectLabels } from "../../store/labels/selectors";
-import { AppLoading } from "expo";
 
 export default function index({ route, navigation }) {
   const imageUri = route.params;
@@ -43,9 +41,9 @@ export default function index({ route, navigation }) {
         }}
       >
         <Text>Please select the label that fits your product best!</Text>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {labels ? (
-            labels.map((label) => {
+        {labels ? (
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {labels.map((label) => {
               return (
                 <View
                   key={label + Math.random()}
@@ -59,11 +57,11 @@ export default function index({ route, navigation }) {
                   />
                 </View>
               );
-            })
-          ) : (
-            <AppLoading />
-          )}
-        </ScrollView>
+            })}
+          </ScrollView>
+        ) : (
+          <ActivityIndicator />
+        )}
 
         <View
           style={{

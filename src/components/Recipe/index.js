@@ -1,18 +1,11 @@
 import React from "react";
-import {
-  Text,
-  View,
-  Button,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import placeholder from "../../images/placeholder.png";
-import { AppLoading } from "expo";
 import {
   useFonts,
   AlfaSlabOne_400Regular,
 } from "@expo-google-fonts/alfa-slab-one";
+import Loading from "../Loading";
 
 export default function Recipe(props) {
   const [fontsLoaded] = useFonts({
@@ -38,13 +31,9 @@ export default function Recipe(props) {
   } = props;
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <Loading />;
   } else {
     return (
-      // <TouchableOpacity
-      //   style={styles.touch}
-      //   onPress={() => navigation.navigate("RecipeDetails", props)}
-      // >
       <View style={styles.recipeCard}>
         <Image
           style={styles.image}
@@ -52,7 +41,6 @@ export default function Recipe(props) {
         />
         <Text style={styles.title}>{title}</Text>
       </View>
-      // </TouchableOpacity>
     );
   }
 }

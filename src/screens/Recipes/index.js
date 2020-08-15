@@ -1,35 +1,25 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Text,
-  View,
-  ImageBackground,
-  Button,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import React from "react";
+import { useSelector } from "react-redux";
+import { StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { selectRecipes } from "../../store/recipes/selectors";
 import Recipe from "../../components/Recipe";
-import { AppLoading } from "expo";
+import Loading from "../../components/Loading";
 
-export default function Recipes({ route, navigation }) {
+export default function Recipes({ navigation }) {
   const recipes = useSelector(selectRecipes);
 
   if (!recipes) {
-    return <AppLoading />;
+    return <Loading />;
   } else {
     return (
       <FlatList
         data={recipes}
         numColumns={2}
         renderItem={({ item }) => {
-          const props = [item.title, item.image, item.source];
-
           return (
             <TouchableOpacity
               style={styles.touch}
-              onPress={() => navigation.navigate("RecipeDetails", props)}
+              onPress={() => navigation.navigate("RecipeDetails", item)}
             >
               <Recipe
                 title={item.title}

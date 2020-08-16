@@ -16,6 +16,16 @@ import { Alata_400Regular } from "@expo-google-fonts/alata";
 import Hyperlink from "react-native-hyperlink";
 import { Table, Row, Rows } from "react-native-table-component";
 
+const Alfa = "AlfaSlabOne_400Regular";
+const Alata = "Alata_400Regular";
+const green = "#b3d89cff";
+const darkGreen = "#70B247";
+const lightGreen = "#C9EBB4";
+const red = "#a53f2bff";
+const blue = "#3b7080ff";
+const lightBlue = "#57AFCA";
+const salmon = "#f79f79ff";
+
 export default function RecipeDetails({ route, navigation }) {
   const item = route.params;
   const [details, setDetails] = useState([item]);
@@ -27,7 +37,6 @@ export default function RecipeDetails({ route, navigation }) {
     Alata_400Regular,
   });
 
-  console.log("check", check);
   return (
     <View style={{ flex: 1, backgroundColor: "#b3d89cff" }}>
       {details.map((item) => {
@@ -115,7 +124,41 @@ export default function RecipeDetails({ route, navigation }) {
           totalDaily.ZN,
         ];
 
-        console.log("totaldailyarray", totalDailyArray);
+        const number = (0.001).toFixed(2);
+
+        function renderAmount(item, amount) {
+          if (!item.quantity) {
+            return "-";
+          } else if (item.quantity && amount === number) {
+            return `< 0,01${item.unit}`;
+          } else {
+            return amount + " " + item.unit;
+          }
+        }
+
+        function renderLabels(array, color) {
+          return array.map((label) => {
+            return (
+              <View
+                key={label}
+                style={{
+                  backgroundColor: color,
+                  padding: 10,
+                  borderRadius: 25,
+                  marginTop: 10,
+                  marginLeft: 10,
+                }}
+              >
+                <Text
+                  style={{ color: lightGreen, fontFamily: Alata, fontSize: 12 }}
+                >
+                  {label}
+                </Text>
+              </View>
+            );
+          });
+        }
+
         return (
           <View style={{ flex: 1 }} key={calories + totalTime}>
             <View style={styles.header}>
@@ -129,18 +172,20 @@ export default function RecipeDetails({ route, navigation }) {
               <Hyperlink
                 linkDefault
                 linkStyle={{
-                  color: "#2980b9",
+                  color: lightBlue,
                   fontSize: 20,
+                  textDecorationLine: "underline",
                 }}
-                linkText={(url) =>
-                  url === sourceUrl ? `Read more on ${source}!` : url
-                }
+                linkText={(url) => (url === sourceUrl ? source : url)}
               >
-                <Text style={{ fontSize: 18, textAlign: "center" }}>
-                  {sourceUrl}
+                <Text
+                  style={{ fontSize: 18, textAlign: "center", color: green }}
+                >
+                  Read full recipe on {sourceUrl}!
                 </Text>
               </Hyperlink>
             </View>
+
             <ScrollView>
               <View style={styles.middle}>
                 <Image
@@ -151,14 +196,31 @@ export default function RecipeDetails({ route, navigation }) {
                   }}
                   source={{ uri: image }}
                 />
-                <Text>Portions: {portion}</Text>
 
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {renderLabels(dietLabels, blue)}
+                  {renderLabels(healthLabels, darkGreen)}
+                  {renderLabels(cautions, salmon)}
+                </View>
+
+                <Text style={styles.middleTextCenter}>
+                  Ingredients for {portion}{" "}
+                  {portion === 1 ? "portion" : "portions"}:
+                </Text>
                 <Text style={styles.middleText}>
-                  Ingredients: {"\n\n"}
                   {item.ingredients.map((ingredient) => {
+                    console.log("what is ingredietn", ingredient);
                     return (
                       <TouchableWithoutFeedback
-                        key={ingredient.text}
+                        key={
+                          ingredient.text + ingredient.weight + ingredient.image
+                        }
                         onPress={() => {
                           console.log("pressed");
                           setCheck(!check);
@@ -184,6 +246,7 @@ export default function RecipeDetails({ route, navigation }) {
                   })}
                 </Text>
 
+                <Text style={styles.middleTextCenter}>Nutritional values:</Text>
                 {!moreInfo ? (
                   //
                   //
@@ -194,7 +257,11 @@ export default function RecipeDetails({ route, navigation }) {
                   <View>
                     <View style={styles.table}>
                       <View style={styles.tableColumn}>
-                        <View style={styles.tableTopLeftRow}></View>
+                        <View style={styles.tableTopLeftRow}>
+                          <Text style={styles.tableTopText}>
+                            Nutritional {"\n"} value per:
+                          </Text>
+                        </View>
 
                         {totalNutrientsArray.slice(0, 8).map((item) => {
                           return (
@@ -206,13 +273,10 @@ export default function RecipeDetails({ route, navigation }) {
                       </View>
                       <View style={styles.tableColumn}>
                         <View style={styles.tableTopRow}>
-                          <Text style={styles.tableTopText}>
-                            per 100 gram:{"\n"}
-                          </Text>
+                          <Text style={styles.tableTopText}>100 gram:</Text>
                         </View>
 
                         {totalNutrientsArray.slice(0, 8).map((item) => {
-                          const number = 0.001;
                           const amount = (
                             (item.quantity / totalWeight) *
                             100
@@ -221,9 +285,7 @@ export default function RecipeDetails({ route, navigation }) {
                           return (
                             <View key={item.label + 1} style={styles.tableRow}>
                               <Text style={styles.tableText}>
-                                {amount === number.toFixed(2)
-                                  ? "-"
-                                  : amount + " " + item.unit}
+                                {renderAmount(item, amount)}
                               </Text>
                             </View>
                           );
@@ -233,20 +295,17 @@ export default function RecipeDetails({ route, navigation }) {
                       <View style={styles.tableColumn}>
                         <View style={styles.tableTopRow}>
                           <Text style={styles.tableTopText}>
-                            per portion:{"\n"}(
-                            {Math.round(totalWeight / portion)} gram)
+                            portion of{"\n"}
+                            {Math.round(totalWeight / portion)} gram:
                           </Text>
                         </View>
 
                         {totalNutrientsArray.slice(0, 8).map((item) => {
-                          const number = 0.001;
                           const amount = (item.quantity / portion).toFixed(2);
                           return (
                             <View key={item.label + 2} style={styles.tableRow}>
                               <Text style={styles.tableText}>
-                                {amount === number.toFixed(2)
-                                  ? "-"
-                                  : amount + " " + item.unit}
+                                {renderAmount(item, amount)}
                               </Text>
                             </View>
                           );
@@ -263,10 +322,14 @@ export default function RecipeDetails({ route, navigation }) {
                         {totalDailyArray.slice(0, 8).map((item) => {
                           return item ? (
                             <View key={item.label + 3} style={styles.tableRow}>
-                              <Text style={styles.tableText}>
-                                {item && (item.quantity / portion).toFixed(2)}{" "}
-                                {item.unit}
-                              </Text>
+                              {item && item.quantity.toFixed(2) === number ? (
+                                <Text style={styles.tableText}> - </Text>
+                              ) : (
+                                <Text style={styles.tableText}>
+                                  {(item.quantity / portion).toFixed(2)}{" "}
+                                  {item.unit}
+                                </Text>
+                              )}
                             </View>
                           ) : (
                             <View key={Math.random()} style={styles.tableRow}>
@@ -281,7 +344,9 @@ export default function RecipeDetails({ route, navigation }) {
                         setMoreInfo(true);
                       }}
                     >
-                      <Text>More information </Text>
+                      <Text style={styles.middleTextCenter}>
+                        More information{" "}
+                      </Text>
                     </TouchableWithoutFeedback>
                   </View>
                 ) : (
@@ -294,7 +359,11 @@ export default function RecipeDetails({ route, navigation }) {
                   <View style={{ width: "100%" }}>
                     <View style={styles.table}>
                       <View style={styles.tableColumn}>
-                        <View style={styles.tableTopLeftRow}></View>
+                        <View style={styles.tableTopLeftRow}>
+                          <Text style={styles.tableTopText}>
+                            Nutritional {"\n"} value per:
+                          </Text>
+                        </View>
 
                         {totalNutrientsArray.map((item) => {
                           return (
@@ -307,13 +376,10 @@ export default function RecipeDetails({ route, navigation }) {
 
                       <View style={styles.tableColumn}>
                         <View style={styles.tableTopRow}>
-                          <Text style={styles.tableTopText}>
-                            per 100 gram:{"\n"}
-                          </Text>
+                          <Text style={styles.tableTopText}>100 gram:</Text>
                         </View>
 
                         {totalNutrientsArray.map((item) => {
-                          const number = 0.001;
                           const amount = (
                             (item.quantity / totalWeight) *
                             100
@@ -322,9 +388,7 @@ export default function RecipeDetails({ route, navigation }) {
                           return (
                             <View key={item.label + 1} style={styles.tableRow}>
                               <Text style={styles.tableText}>
-                                {amount === number.toFixed(2)
-                                  ? "-"
-                                  : amount + " " + item.unit}
+                                {renderAmount(item, amount)}
                               </Text>
                             </View>
                           );
@@ -334,20 +398,17 @@ export default function RecipeDetails({ route, navigation }) {
                       <View style={styles.tableColumn}>
                         <View style={styles.tableTopRow}>
                           <Text style={styles.tableTopText}>
-                            per portion:{"\n"}(
-                            {Math.round(totalWeight / portion)} gram)
+                            portion of{"\n"}
+                            {Math.round(totalWeight / portion)} gram:
                           </Text>
                         </View>
 
                         {totalNutrientsArray.map((item) => {
-                          const number = 0.001;
                           const amount = (item.quantity / portion).toFixed(2);
                           return (
                             <View key={item.label + 2} style={styles.tableRow}>
                               <Text style={styles.tableText}>
-                                {amount === number.toFixed(2)
-                                  ? "-"
-                                  : amount + " " + item.unit}
+                                {renderAmount(item, amount)}
                               </Text>
                             </View>
                           );
@@ -364,10 +425,14 @@ export default function RecipeDetails({ route, navigation }) {
                         {totalDailyArray.map((item) => {
                           return item ? (
                             <View key={item.label + 3} style={styles.tableRow}>
-                              <Text style={styles.tableText}>
-                                {item && (item.quantity / portion).toFixed(2)}{" "}
-                                {item.unit}
-                              </Text>
+                              {item && item.quantity.toFixed(2) === number ? (
+                                <Text style={styles.tableText}> - </Text>
+                              ) : (
+                                <Text style={styles.tableText}>
+                                  {(item.quantity / portion).toFixed(2)}{" "}
+                                  {item.unit}
+                                </Text>
+                              )}
                             </View>
                           ) : (
                             <View key={Math.random()} style={styles.tableRow}>
@@ -383,7 +448,9 @@ export default function RecipeDetails({ route, navigation }) {
                         setMoreInfo(false);
                       }}
                     >
-                      <Text>Less info</Text>
+                      <Text style={styles.middleTextCenter}>
+                        Less information
+                      </Text>
                     </TouchableWithoutFeedback>
                   </View>
                 )}
@@ -396,11 +463,6 @@ export default function RecipeDetails({ route, navigation }) {
   );
 }
 
-const alfa = "AlfaSlabOne_400Regular";
-const alata = "Alata_400Regular";
-const green = "#b3d89cff";
-const red = "#a53f2bff";
-
 const styles = StyleSheet.create({
   header: {
     backgroundColor: red,
@@ -410,9 +472,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   headerText: {
-    color: green,
+    color: darkGreen,
     fontSize: 100,
-    fontFamily: "AlfaSlabOne_400Regular",
+    fontFamily: Alfa,
     paddingHorizontal: 20,
     textAlign: "center",
   },
@@ -423,12 +485,18 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   middleText: {
-    color: "white",
+    color: red,
     fontSize: 20,
-    fontFamily: "Alata_400Regular",
+    fontFamily: Alata,
     paddingHorizontal: 10,
   },
-
+  middleTextCenter: {
+    color: red,
+    fontSize: 25,
+    fontFamily: Alata,
+    textAlign: "center",
+    marginBottom: 10,
+  },
   table: {
     flexDirection: "row",
     alignSelf: "center",
@@ -484,12 +552,12 @@ const styles = StyleSheet.create({
   },
   tableTopText: {
     fontSize: 12.5,
-    fontFamily: "Alata_400Regular",
+    fontFamily: Alata,
     color: green,
   },
   tableText: {
     fontSize: 12.5,
-    fontFamily: "Alata_400Regular",
+    fontFamily: Alata,
     color: red,
   },
 });

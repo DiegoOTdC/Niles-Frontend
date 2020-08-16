@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableWithoutFeedback,
+  ImageBackground,
 } from "react-native";
 import {
   useFonts,
@@ -14,7 +15,6 @@ import {
 } from "@expo-google-fonts/alfa-slab-one";
 import { Alata_400Regular } from "@expo-google-fonts/alata";
 import Hyperlink from "react-native-hyperlink";
-import { Table, Row, Rows } from "react-native-table-component";
 
 const Alfa = "AlfaSlabOne_400Regular";
 const Alata = "Alata_400Regular";
@@ -30,12 +30,45 @@ export default function RecipeDetails({ route, navigation }) {
   const item = route.params;
   const [details, setDetails] = useState([item]);
   const [check, setCheck] = useState(false);
+  const [ingredientLines, setIngredientLines] = useState({});
   const [moreInfo, setMoreInfo] = useState(false);
 
   const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
     Alata_400Regular,
   });
+
+  useEffect(() => {
+    const items = item.ingredients.map((ingredient) => {
+      return ingredient.text;
+    });
+
+    console.log("what is items here?", items);
+
+    const object = items.reduce(
+      (a, key) => Object.assign(a, { [key]: false }),
+      {}
+    );
+
+    console.log("what is obejct", object);
+
+    setIngredientLines(object);
+
+    // const what = items.map((i) => {
+    //   if(Object.prototype.hasOwnProperty.call(object, i)){
+
+    //   }
+    // });
+
+    // console.log("what is whatttttttt", what);
+
+    // for (const [key, value] of Object.entries(object)) {
+    //   setIngredientLines([...ingredientLines, { [key]: value }]);
+    //   console.log(`what is going on here! ${key}: ${value}`);
+    // }
+  }, [item]);
+
+  console.log("what is ingredientlines", ingredientLines);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#b3d89cff" }}>
@@ -54,6 +87,7 @@ export default function RecipeDetails({ route, navigation }) {
           totalNutrients,
           totalDaily,
           totalWeight,
+          ingredients,
         } = item;
 
         const totalNutrientsArray = [
@@ -213,9 +247,16 @@ export default function RecipeDetails({ route, navigation }) {
                   Ingredients for {portion}{" "}
                   {portion === 1 ? "portion" : "portions"}:
                 </Text>
-                <Text style={styles.middleText}>
-                  {item.ingredients.map((ingredient) => {
-                    console.log("what is ingredietn", ingredient);
+                <View>
+                  {ingredients.map((ingredient) => {
+                    const image = ingredient.image
+                      ? { uri: ingredient.image }
+                      : require("../../images/placeholder.png");
+                    const thisIngredientLine = ingredient.text;
+
+                    const thisthing = ingredientLines[thisIngredientLine];
+                    console.log("what is thisthing", thisthing);
+
                     return (
                       <TouchableWithoutFeedback
                         key={
@@ -224,27 +265,80 @@ export default function RecipeDetails({ route, navigation }) {
                         onPress={() => {
                           console.log("pressed");
                           setCheck(!check);
+                          ingredientLines[thisIngredientLine] === false
+                            ? setIngredientLines({
+                                ...ingredientLines,
+                                [thisIngredientLine]: true,
+                              })
+                            : setIngredientLines({
+                                ...ingredientLines,
+                                [thisIngredientLine]: false,
+                              });
                         }}
                       >
-                        <Text style={{ flexDirection: "row" }}>
-                          {!check ? (
-                            <Image
-                              style={{
-                                width: 40,
-                                height: 40,
-                              }}
-                              source={{ uri: ingredient.image }}
-                            />
-                          ) : (
-                            <Text>[GOTIT]</Text>
-                          )}
-                          -{ingredient.text}
-                          {"\n"}
-                        </Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <View style={{ flexDirection: "column", flex: 8 }}>
+                            <Text
+                              style={
+                                ingredientLines[thisIngredientLine] === false
+                                  ? {
+                                      color: red,
+                                      fontSize: 20,
+                                      fontFamily: Alata,
+                                      paddingHorizontal: 10,
+                                    }
+                                  : {
+                                      color: red,
+                                      fontSize: 20,
+                                      fontFamily: Alata,
+                                      paddingHorizontal: 10,
+                                      textDecorationLine: "line-through",
+                                    }
+                              }
+                            >
+                              -{ingredient.text}
+                            </Text>
+                          </View>
+                          <View style={{ flexDirection: "column", flex: 1 }}>
+                            {ingredientLines[thisIngredientLine] === false ? (
+                              <Image
+                                style={{
+                                  width: 40,
+                                  height: 40,
+                                }}
+                                source={image}
+                              />
+                            ) : (
+                              <View style={{ width: 40, height: 40 }}>
+                                <ImageBackground
+                                  style={{
+                                    resizeMode: "cover",
+                                    justifyContent: "center",
+                                    flex: 1,
+                                    opacity: 0.5,
+                                  }}
+                                  source={image}
+                                >
+                                  <Text
+                                    style={{
+                                      color: red,
+                                      fontSize: 30,
+                                      fontFamily: Alata,
+                                      paddingHorizontal: 10,
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {"\u2713"}
+                                  </Text>
+                                </ImageBackground>
+                              </View>
+                            )}
+                          </View>
+                        </View>
                       </TouchableWithoutFeedback>
                     );
                   })}
-                </Text>
+                </View>
 
                 <Text style={styles.middleTextCenter}>Nutritional values:</Text>
                 {!moreInfo ? (

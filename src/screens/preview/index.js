@@ -10,13 +10,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
 import { selectLabels } from "../../store/labels/selectors";
+import { selectNameOfProduct } from "../../store/labels/selectors";
 
 export default function index({ route, navigation }) {
   const imageUri = route.params;
   const labels = useSelector(selectLabels);
+  const nameOfProduct = useSelector(selectNameOfProduct);
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");
-  console.log("are the labels in preview??", labels);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
@@ -24,16 +25,22 @@ export default function index({ route, navigation }) {
     navigation.navigate("Recipes");
   }
 
+  const back = "false";
+
   return (
     <View
       style={{
         flex: 1,
       }}
     >
-      <Image
-        style={{ width: "100%", height: "50%" }}
-        source={{ uri: imageUri }}
-      />
+      {!imageUri ? (
+        <Text>This is the name of the product: {nameOfProduct}</Text>
+      ) : (
+        <Image
+          style={{ width: "100%", height: "50%" }}
+          source={{ uri: imageUri }}
+        />
+      )}
       <View
         style={{
           width: "100%",
@@ -82,7 +89,23 @@ export default function index({ route, navigation }) {
         >
           <Button
             title="TRY AGAIN"
-            onPress={() => navigation.navigate("Camera")}
+            onPress={() => {
+              if (nameOfProduct) {
+                navigation.navigate("BarcodeScanner", back);
+              } else {
+                navigation.navigate("Camera");
+              }
+            }}
+          />
+          <Button
+            title={nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
+            onPress={() => {
+              if (nameOfProduct) {
+                navigation.navigate("Camera");
+              } else {
+                navigation.navigate("BarcodeScanner");
+              }
+            }}
           />
           <Button
             title="NILES FETCH RECIPES!"

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBarcodeLabels } from "../../store/labels/actions";
 import {
   Text,
   View,
@@ -11,6 +13,7 @@ import { blue, lightBrown, lightBlue } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 
 export default function BarcodeScanner() {
+  const dispatch = useDispatch();
   useFonts({ Alata_400Regular });
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -24,8 +27,9 @@ export default function BarcodeScanner() {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
+    console.log(`type: ${type} with barcode number: ${data}`);
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    dispatch(fetchBarcodeLabels(data));
   };
 
   if (hasPermission === null) {
@@ -34,8 +38,6 @@ export default function BarcodeScanner() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-  console.log("fontcolor", fontColor);
 
   return (
     <View

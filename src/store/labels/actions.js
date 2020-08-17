@@ -9,11 +9,21 @@ export const setLabels = (labels) => ({
   payload: labels,
 });
 
-export const fetchLabels = (imageUrl) => {
+export const fetchImageLabels = (imageUrl) => {
   return async (dispatch, getState) => {
     const response = await axios.post(`${server}/analyse/image`, {
       imageUrl,
     });
+    console.log("what is in the response?", response.data);
     dispatch(setLabels(response.data));
+  };
+};
+
+export const fetchBarcodeLabels = (barcode) => {
+  console.log("what is barcode in action?", barcode);
+  return async (dispatch, getState) => {
+    const response = await axios.get(`${server}/analyse/barcode/${barcode}`);
+    dispatch(setLabels(response.data));
+    console.log("what is in the response?", response.data);
   };
 };

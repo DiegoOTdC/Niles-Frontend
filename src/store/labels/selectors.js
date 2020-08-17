@@ -1,1 +1,1 @@
-export const selectLabels = (state) => state.labels.imageLabel;
+export const selectLabels = (state) => state.labels.labels;

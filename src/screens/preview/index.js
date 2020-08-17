@@ -16,6 +16,7 @@ export default function index({ route, navigation }) {
   const labels = useSelector(selectLabels);
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");
+  console.log("are the labels in preview??", labels);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { useDispatch } from "react-redux";
 import { fetchLabels } from "../../store/labels/actions";
 import * as firebase from "firebase";
+import Loading from "../../components/Loading";
 
 export default function App({ navigation }) {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export default function App({ navigation }) {
         const imageUri = image.uri;
 
         if (imageUri) {
+          setLoading(true);
           this.uploadImage(imageUri, "test-image2")
             .then(() => {
               console.log("Success!");
@@ -66,7 +68,6 @@ export default function App({ navigation }) {
 
   //upload image to firebase
   uploadImage = async (uri, imageName) => {
-    setLoading(true);
     const response = await fetch(uri);
     const blob = await response.blob();
     const ref = firebase
@@ -77,19 +78,7 @@ export default function App({ navigation }) {
   };
 
   if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          backgroundColor: "#5d3a00ff",
-        }}
-      >
-        <Text style={{ color: "#b3d89cff" }}>Niles: </Text>
-        <Text style={{ color: "#b3d89cff" }}>"Going as fast as I can.."</Text>
-        <ActivityIndicator size="large" color="#b3d89cff" />
-      </View>
-    );
+    return <Loading />;
   } else {
     return (
       <View style={{ flex: 1 }}>

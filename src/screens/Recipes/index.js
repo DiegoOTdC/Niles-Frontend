@@ -1,22 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Text,
-  View,
-  ImageBackground,
-  Button,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import React from "react";
+import { useSelector } from "react-redux";
+import { StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { selectRecipes } from "../../store/recipes/selectors";
 import Recipe from "../../components/Recipe";
-import { AppLoading } from "expo";
+import Loading from "../../components/Loading";
 
 export default function Recipes({ route, navigation }) {
   const recipes = useSelector(selectRecipes);
 
   if (!recipes) {
-    return <AppLoading />;
+    return <Loading />;
   } else {
     return (
       <FlatList
@@ -24,24 +17,28 @@ export default function Recipes({ route, navigation }) {
         numColumns={2}
         renderItem={({ item }) => {
           return (
-            <Recipe
-              key={item.title}
-              title={item.title}
-              image={item.image}
-              source={item.source}
-              sourceUrl={item.sourceUrl}
-              portion={item.portion}
-              dietLabels={item.dietLabels}
-              healthLabels={item.healthLabels}
-              cautions={item.cautions}
-              text={item.text}
-              ingredients={item.ingredients}
-              calories={item.calories}
-              totalTime={item.totalTime}
-              totalNutrients={item.totalNutrients}
-              totalDaily={item.totalDaily}
-              totalWeight={item.totalWeight}
-            />
+            <TouchableOpacity
+              style={styles.touch}
+              onPress={() => navigation.navigate("RecipeDetails", item)}
+            >
+              <Recipe
+                title={item.title}
+                image={item.image}
+                source={item.source}
+                sourceUrl={item.sourceUrl}
+                portion={item.portion}
+                dietLabels={item.dietLabels}
+                healthLabels={item.healthLabels}
+                cautions={item.cautions}
+                text={item.text}
+                ingredients={item.ingredients}
+                calories={item.calories}
+                totalTime={item.totalTime}
+                totalNutrients={item.totalNutrients}
+                totalDaily={item.totalDaily}
+                totalWeight={item.totalWeight}
+              />
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(item) => item.title + item.source}
@@ -49,3 +46,7 @@ export default function Recipes({ route, navigation }) {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  touch: { backgroundColor: "#b3d89cff", width: "50%" },
+});

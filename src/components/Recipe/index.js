@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  Text,
-  View,
-  Button,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 import placeholder from "../../images/placeholder.png";
-import { AppLoading } from "expo";
 import {
   useFonts,
   AlfaSlabOne_400Regular,
 } from "@expo-google-fonts/alfa-slab-one";
 
-export default function Recipe(prop) {
+export default function Recipe(props) {
   const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
   });
@@ -35,21 +27,19 @@ export default function Recipe(prop) {
     totalNutrients,
     totalDaily,
     totalWeight,
-  } = prop;
+  } = props;
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <ActivityIndicator color="#a53f2bff" />;
   } else {
     return (
-      <TouchableOpacity style={styles.touch}>
-        <View style={styles.recipeCard}>
-          <Image
-            style={styles.image}
-            source={{ uri: image ? image : placeholder }}
-          />
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      </TouchableOpacity>
+      <View style={styles.recipeCard}>
+        <Image
+          style={styles.image}
+          source={{ uri: image ? image : placeholder }}
+        />
+        <Text style={styles.title}>{title}</Text>
+      </View>
     );
   }
 }

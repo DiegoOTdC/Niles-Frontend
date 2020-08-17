@@ -11,7 +11,7 @@ export const setLabels = (labels) => ({
 
 export const fetchLabels = (imageUrl) => {
   return async (dispatch, getState) => {
-    const response = await axios.post(`${server}/analyse`, {
+    const response = await axios.post(`${server}/analyse/image`, {
       imageUrl,
     });
     dispatch(setLabels(response.data));

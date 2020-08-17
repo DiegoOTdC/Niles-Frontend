@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { blue, lightBrown } from "../../colours";
 
 export default function BarcodeScanner() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -30,9 +31,17 @@ export default function BarcodeScanner() {
       style={{
         flex: 1,
         flexDirection: "column",
-        justifyContent: "flex-end",
+        backgroundColor: blue,
       }}
     >
+      <Text
+        style={{
+          textAlign: "center",
+          color: lightBrown,
+        }}
+      >
+        Aim at the barcode!
+      </Text>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}

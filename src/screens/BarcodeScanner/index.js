@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  TouchableHighlight,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { blue, lightBrown } from "../../colours";
+import { blue, lightBrown, lightBlue } from "../../colours";
+import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 
 export default function BarcodeScanner() {
+  useFonts({ Alata_400Regular });
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [fontColor, setFontColor] = useState(lightBrown);
 
   useEffect(() => {
     (async () => {
@@ -26,18 +35,24 @@ export default function BarcodeScanner() {
     return <Text>No access to camera</Text>;
   }
 
+  console.log("fontcolor", fontColor);
+
   return (
     <View
       style={{
         flex: 1,
         flexDirection: "column",
         backgroundColor: blue,
+        justifyContent: "space-between",
       }}
     >
       <Text
         style={{
           textAlign: "center",
           color: lightBrown,
+          fontFamily: "Alata_400Regular",
+          fontSize: 35,
+          marginTop: 25,
         }}
       >
         Aim at the barcode!
@@ -48,7 +63,32 @@ export default function BarcodeScanner() {
       />
 
       {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        <TouchableHighlight
+          style={{ alignSelf: "center", marginBottom: 25 }}
+          activeOpacity={1}
+          underlayColor={blue}
+          onShowUnderlay={() => setFontColor(lightBlue)}
+          onPress={() => {
+            setFontColor(lightBrown);
+            setScanned(false);
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              color: fontColor,
+              fontSize: 35,
+              fontFamily: "Alata_400Regular",
+            }}
+          >
+            Tap to Scan Again
+          </Text>
+        </TouchableHighlight>
+        // <Button
+        //   style={{ selfAlign: "center", width: "50%" }}
+        //   title={"Tap to Scan Again"}
+        //   onPress={() => setScanned(false)}
+        // />
       )}
     </View>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -9,13 +9,23 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
+import { removeLabels } from "../../store/labels/actions";
 import { selectLabels } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
+import { selectUrl } from "../../store/labels/selectors";
 
 export default function index({ route, navigation }) {
-  const imageUri = route.params;
+  const { imageUri } = route.params || {};
+  console.log("what is route.params", route.params);
+  console.log("what is imageURI in preview???", imageUri);
   const labels = useSelector(selectLabels);
   const nameOfProduct = useSelector(selectNameOfProduct);
+  const urlll = useSelector(selectUrl);
+
+  console.log("labels", labels);
+  console.log("nameOfProduct", nameOfProduct);
+  console.log("urlll", urlll);
+
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");
 
@@ -36,7 +46,11 @@ export default function index({ route, navigation }) {
       ) : (
         <Image
           style={{ width: "100%", height: "50%" }}
-          source={{ uri: imageUri }}
+          source={
+            imageUri === {}
+              ? require("../../images/placeholder.png")
+              : { uri: imageUri }
+          }
         />
       )}
       <View
@@ -89,8 +103,12 @@ export default function index({ route, navigation }) {
             title="TRY AGAIN"
             onPress={() => {
               if (nameOfProduct) {
+                setFoodLabel("");
+                dispatch(removeLabels());
                 navigation.navigate("BarcodeScanner");
               } else {
+                setFoodLabel("");
+                dispatch(removeLabels());
                 navigation.navigate("Camera");
               }
             }}
@@ -99,8 +117,12 @@ export default function index({ route, navigation }) {
             title={nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
             onPress={() => {
               if (nameOfProduct) {
+                setFoodLabel("");
+                dispatch(removeLabels());
                 navigation.navigate("Camera");
               } else {
+                setFoodLabel("");
+                dispatch(removeLabels());
                 navigation.navigate("BarcodeScanner");
               }
             }}

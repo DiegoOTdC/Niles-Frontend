@@ -15,6 +15,7 @@ import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 
 export default function BarcodeScanner({ navigation }) {
   const imageUri = useSelector(selectUrl);
+  console.log("is the imageUri here in barcodescanner?", imageUri);
   const checkUrl = imageUri && imageUri.split(":");
   const dispatch = useDispatch();
   useFonts({ Alata_400Regular });
@@ -36,9 +37,14 @@ export default function BarcodeScanner({ navigation }) {
   };
 
   useEffect(() => {
+    console.log("what is checkURL??", checkUrl);
     if (scanned && checkUrl && checkUrl[0] === "https") {
       setScanned(false);
-      navigation.navigate("Preview", imageUri);
+      console.log(
+        "what do we have here before navigating to preview?",
+        imageUri
+      );
+      navigation.navigate("Preview", { imageUri });
     }
   }, [imageUri]);
 

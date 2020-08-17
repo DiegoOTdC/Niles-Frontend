@@ -51,7 +51,7 @@ export default function App({ navigation }) {
                   dispatch(fetchImageLabels(url));
                 })
                 .then(() => setLoading(false))
-                .then(() => navigation.navigate("Preview", imageUri))
+                .then(() => navigation.navigate("Preview", { imageUri }))
                 .catch((e) =>
                   console.log("getting downloadURL of image error", e.message)
                 );

@@ -25,8 +25,6 @@ export default function index({ route, navigation }) {
     navigation.navigate("Recipes");
   }
 
-  const back = "false";
-
   return (
     <View
       style={{
@@ -91,7 +89,7 @@ export default function index({ route, navigation }) {
             title="TRY AGAIN"
             onPress={() => {
               if (nameOfProduct) {
-                navigation.navigate("BarcodeScanner", back);
+                navigation.navigate("BarcodeScanner");
               } else {
                 navigation.navigate("Camera");
               }

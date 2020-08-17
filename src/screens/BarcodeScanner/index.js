@@ -13,26 +13,14 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { blue, lightBrown, lightBlue } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 
-export default function BarcodeScanner({ route, navigation }) {
+export default function BarcodeScanner({ navigation }) {
   const imageUri = useSelector(selectUrl);
-  console.log("is the url from barcode image here?", imageUri);
   const checkUrl = imageUri && imageUri.split(":");
-  console.log("what is checkUrl", checkUrl);
-
-  const back = route.params;
-  console.log("what is route.parms", route.params);
-  console.log("what is back", back);
   const dispatch = useDispatch();
   useFonts({ Alata_400Regular });
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [fontColor, setFontColor] = useState(lightBrown);
-
-  useEffect(() => {
-    setScanned(false);
-  }, [back]);
-
-  console.log("what is scanned?", scanned);
 
   useEffect(() => {
     (async () => {
@@ -48,7 +36,8 @@ export default function BarcodeScanner({ route, navigation }) {
   };
 
   useEffect(() => {
-    if (checkUrl && checkUrl[0] === "https") {
+    if (scanned && checkUrl && checkUrl[0] === "https") {
+      setScanned(false);
       navigation.navigate("Preview", imageUri);
     }
   }, [imageUri]);

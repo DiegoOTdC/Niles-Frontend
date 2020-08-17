@@ -4,6 +4,7 @@ import store from "./src/store";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
+import BarcodeScanner from "./src/screens/BarcodeScanner";
 import Camera from "./src/screens/Camera";
 import Preview from "./src/screens/Preview";
 import Recipes from "./src/screens/Recipes";
@@ -33,6 +34,7 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
           <Stack.Screen name="Camera" component={Camera} />
           <Stack.Screen name="Preview" component={Preview} />
           <Stack.Screen name="Recipes" component={Recipes} />

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/user/actions";
+import { selectToken } from "../../store/user/selectors";
 import {
   Text,
   View,
@@ -15,10 +17,12 @@ import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const Alfa = "AlfaSlabOne_400Regular";
 const Alata = "Alata_400Regular";
 
-export default function Login() {
+export default function Login({ navigation }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const token = useSelector(selectToken);
 
   const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
@@ -26,12 +30,17 @@ export default function Login() {
   });
 
   function onPress(email, password) {
-    console.log(`onPress email: ${email} and password: ${password}`);
-    // dispatch(login(email, password));
-
+    dispatch(login(email, password));
     setEmail("");
     setPassword("");
   }
+
+  useEffect(() => {
+    console.log("what is in token?", token);
+    if (token !== null) {
+      navigation.navigate("HomeScreen");
+    }
+  }, [token, navigation]);
 
   if (!fontsLoaded) {
     return <ActivityIndicator />;

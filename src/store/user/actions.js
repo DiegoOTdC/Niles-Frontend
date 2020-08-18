@@ -20,6 +20,9 @@ const loginSuccess = (userWithToken) => {
 export const logOut = () => ({ type: LOG_OUT });
 
 export const register = (name, email, password) => {
+  console.log("do we get the name", name);
+  console.log("do we get the password?", password);
+  console.log("do we get the email?", email);
   return async (dispatch, getState) => {
     try {
       const response = await axios.post(`${server}/register`, {

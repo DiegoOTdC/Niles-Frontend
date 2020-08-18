@@ -9,13 +9,22 @@ import {
   TextInput,
   ActivityIndicator,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  Keyboard,
 } from "react-native";
-import { green, darkGreen, budGreen, brown } from "../../colours";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { green, darkGreen, budGreen, brown, blue } from "../../colours";
 import { AlfaSlabOne_400Regular } from "@expo-google-fonts/alfa-slab-one";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
+import { Rochester_400Regular } from "@expo-google-fonts/rochester";
+import { GreatVibes_400Regular } from "@expo-google-fonts/great-vibes";
 
-const Alfa = "AlfaSlabOne_400Regular";
-const Alata = "Alata_400Regular";
+const alfa = "AlfaSlabOne_400Regular";
+const alata = "Alata_400Regular";
+const rochester = "Rochester_400Regular";
+const greatVibes = "GreatVibes_400Regular";
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -27,6 +36,8 @@ export default function Login({ navigation }) {
   const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
     Alata_400Regular,
+    Rochester_400Regular,
+    GreatVibes_400Regular,
   });
 
   function onPress(email, password) {
@@ -46,39 +57,119 @@ export default function Login({ navigation }) {
     return <ActivityIndicator />;
   } else {
     return (
-      <View style={styles.login}>
-        <Text style={{ fontFamily: Alfa }}>Login page</Text>
-        <TextInput
-          style={[styles.text, { backgroundColor: budGreen }]}
-          placeholder="name / email"
-          placeholderTextColor={green}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-        />
-        <TextInput
-          style={[styles.text, { backgroundColor: budGreen }]}
-          placeholder="password"
-          placeholderTextColor={green}
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-        />
-        <TouchableWithoutFeedback onPress={() => onPress(email, password)}>
-          <Text style={[styles.text, { backgroundColor: brown }]}>Login!</Text>
+      <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: green }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.login}>
+            <View
+              style={{
+                width: 350,
+                height: 350,
+                backgroundColor: brown,
+                borderRadius: 175,
+                marginTop: -10,
+              }}
+            ></View>
+            <View
+              style={{
+                width: "70%",
+                marginTop: 30,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: greatVibes,
+                  color: blue,
+                  fontSize: 75,
+                }}
+              >
+                Welcome
+              </Text>
+            </View>
+            <TextInput
+              style={[
+                styles.text,
+                { backgroundColor: budGreen, paddingBottom: 3, marginTop: 25 },
+              ]}
+              placeholder="name / email"
+              placeholderTextColor={green}
+              onChangeText={(text) => setEmail(text)}
+              value={email}
+            />
+            <TextInput
+              style={[
+                styles.text,
+                { backgroundColor: budGreen, paddingBottom: 3, marginTop: 20 },
+              ]}
+              placeholder="password"
+              placeholderTextColor={green}
+              secureTextEntry={true}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+            />
+            <TouchableWithoutFeedback onPress={() => onPress(email, password)}>
+              <Text
+                style={[
+                  styles.text,
+                  { backgroundColor: brown, marginTop: 20, paddingTop: 5 },
+                ]}
+              >
+                Login!
+              </Text>
+            </TouchableWithoutFeedback>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "70%",
+                justifyContent: "center",
+                marginTop: 15,
+              }}
+            >
+              <Text
+                style={{
+                  color: budGreen,
+                  fontFamily: alata,
+                  fontSize: 15,
+                  marginRight: 15,
+                  paddingTop: 5,
+                }}
+              >
+                Don't have an account?
+              </Text>
+              <TouchableWithoutFeedback
+                onPress={() => navigation.navigate("Register")}
+              >
+                <Text
+                  style={{
+                    color: brown,
+                    fontFamily: alata,
+                    fontSize: 20,
+                  }}
+                >
+                  Register
+                </Text>
+              </TouchableWithoutFeedback>
+            </View>
+          </View>
         </TouchableWithoutFeedback>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  login: { flex: 1, backgroundColor: green, alignItems: "center" },
+  login: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: green,
+  },
   text: {
     height: 60,
-    textAlign: "center",
-    fontFamily: Alata,
+    fontFamily: alata,
     fontSize: 25,
     color: green,
     width: "70%",
+    textAlign: "center",
   },
 });

@@ -1,9 +1,8 @@
 import axios from "axios";
+import { server } from "@env";
 
 export const FETCH_LABELS_SUCCESS = "FETCH_LABELS_SUCCESS";
 export const REMOVE_LABELS_SUCCESS = "REMOVE_LABELS_SUCCESS";
-
-const server = "http://192.168.178.87:4000";
 
 export const setLabels = (labels) => ({
   type: FETCH_LABELS_SUCCESS,

@@ -11,14 +11,22 @@ import Recipes from "./src/screens/Recipes";
 import RecipeDetails from "./src/screens/RecipeDetails";
 import * as firebase from "firebase";
 import { YellowBox } from "react-native";
+import {
+  apiKey,
+  authDomain,
+  databaseUrl,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+} from "@env";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAm0BbCJAo1vuJ-G_eS8pORPJX4N9MO7-E",
-  authDomain: "niles-tdms.firebaseapp.com",
-  databaseURL: "https://niles-tdms.firebaseio.com/",
-  projectId: "niles-tdms",
-  storageBucket: "gs://niles-tdms.appspot.com",
-  messagingSenderId: "221952632429",
+  apiKey: apiKey,
+  authDomain: authDomain,
+  databaseUrl: databaseUrl,
+  projectId: projectId,
+  storageBucket: storageBucket,
+  messagingSenderId: messagingSenderId,
 };
 
 if (!firebase.apps.length) {

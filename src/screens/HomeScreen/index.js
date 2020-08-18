@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Button } from "react-native";
+import { View } from "react-native";
 import HomeButton from "../../components/HomeButton";
 
 import { AppLoading } from "expo";
@@ -35,7 +35,7 @@ export default function HomeScreen({ navigation }) {
         <HomeButton
           style={{ justifyContent: "top" }}
           title="Scan Barcode"
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate("BarcodeScanner")}
           backgroundColor="#3b7080ff"
           color="#b3d89cff"
           font="AlfaSlabOne_400Regular"

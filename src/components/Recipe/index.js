@@ -11,23 +11,7 @@ export default function Recipe(props) {
     AlfaSlabOne_400Regular,
   });
 
-  const {
-    title,
-    image,
-    source,
-    sourceUrl,
-    portion,
-    dietLabels,
-    healthLabels,
-    cautions,
-    text,
-    ingredients,
-    calories,
-    totalTime,
-    totalNutrients,
-    totalDaily,
-    totalWeight,
-  } = props;
+  const { title, image } = props;
 
   if (!fontsLoaded) {
     return <ActivityIndicator color="#a53f2bff" />;

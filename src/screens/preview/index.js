@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -6,21 +6,52 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
+import { removeLabels } from "../../store/labels/actions";
+import { removeRecipes } from "../../store/recipes/actions";
 import { selectLabels } from "../../store/labels/selectors";
+import { selectMessage } from "../../store/labels/selectors";
+import { selectNameOfProduct } from "../../store/labels/selectors";
+import { selectRecipes } from "../../store/recipes/selectors";
+import Loading from "../../components/Loading";
 
 export default function index({ route, navigation }) {
-  const imageUri = route.params;
+  const { imageUri } = route.params || {};
   const labels = useSelector(selectLabels);
+  const message = useSelector(selectMessage);
+  const nameOfProduct = useSelector(selectNameOfProduct);
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const recipes = useSelector(selectRecipes);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
+    setLoading(true);
     dispatch(getRecipes(foodLabel));
-    navigation.navigate("Recipes");
+  }
+
+  useEffect(() => {
+    if (recipes && recipes.message) {
+      setLoading(false);
+      Alert.alert(recipes.message);
+      dispatch(removeRecipes());
+    } else if (recipes && loading) {
+      setLoading(false);
+      navigation.navigate("Recipes");
+    }
+  }, [recipes]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (message) {
+    Alert.alert(message);
   }
 
   return (
@@ -29,10 +60,18 @@ export default function index({ route, navigation }) {
         flex: 1,
       }}
     >
-      <Image
-        style={{ width: "100%", height: "50%" }}
-        source={{ uri: imageUri }}
-      />
+      {!imageUri ? (
+        <Text>This is the name of the product: {nameOfProduct}</Text>
+      ) : (
+        <Image
+          style={{ width: "100%", height: "50%" }}
+          source={
+            imageUri === {}
+              ? require("../../images/placeholder.png")
+              : { uri: imageUri }
+          }
+        />
+      )}
       <View
         style={{
           width: "100%",
@@ -81,7 +120,31 @@ export default function index({ route, navigation }) {
         >
           <Button
             title="TRY AGAIN"
-            onPress={() => navigation.navigate("Camera")}
+            onPress={() => {
+              if (nameOfProduct) {
+                setFoodLabel("");
+                dispatch(removeLabels());
+                navigation.navigate("BarcodeScanner");
+              } else {
+                setFoodLabel("");
+                dispatch(removeLabels());
+                navigation.navigate("Camera");
+              }
+            }}
+          />
+          <Button
+            title={nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
+            onPress={() => {
+              if (nameOfProduct) {
+                setFoodLabel("");
+                dispatch(removeLabels());
+                navigation.navigate("Camera");
+              } else {
+                setFoodLabel("");
+                dispatch(removeLabels());
+                navigation.navigate("BarcodeScanner");
+              }
+            }}
           />
           <Button
             title="NILES FETCH RECIPES!"

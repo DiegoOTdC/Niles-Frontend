@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { useDispatch } from "react-redux";
-import { fetchLabels } from "../../store/labels/actions";
+import { fetchImageLabels } from "../../store/labels/actions";
 import * as firebase from "firebase";
 import Loading from "../../components/Loading";
 
@@ -48,10 +48,10 @@ export default function App({ navigation }) {
               imageRef
                 .getDownloadURL()
                 .then((url) => {
-                  dispatch(fetchLabels(url));
+                  dispatch(fetchImageLabels(url));
                 })
                 .then(() => setLoading(false))
-                .then(() => navigation.navigate("Preview", imageUri))
+                .then(() => navigation.navigate("Preview", { imageUri }))
                 .catch((e) =>
                   console.log("getting downloadURL of image error", e.message)
                 );

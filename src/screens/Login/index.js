@@ -91,7 +91,7 @@ export default function Login({ navigation }) {
                 styles.text,
                 { backgroundColor: budGreen, paddingBottom: 3, marginTop: 25 },
               ]}
-              placeholder="name / email"
+              placeholder="email"
               placeholderTextColor={green}
               onChangeText={(text) => setEmail(text)}
               value={email}

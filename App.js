@@ -9,16 +9,26 @@ import Camera from "./src/screens/Camera";
 import Preview from "./src/screens/Preview";
 import Recipes from "./src/screens/Recipes";
 import RecipeDetails from "./src/screens/RecipeDetails";
+import Register from "./src/screens/Register";
+import Login from "./src/screens/Login";
 import * as firebase from "firebase";
 import { YellowBox } from "react-native";
+import {
+  apiKey,
+  authDomain,
+  databaseUrl,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+} from "@env";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAm0BbCJAo1vuJ-G_eS8pORPJX4N9MO7-E",
-  authDomain: "niles-tdms.firebaseapp.com",
-  databaseURL: "https://niles-tdms.firebaseio.com/",
-  projectId: "niles-tdms",
-  storageBucket: "gs://niles-tdms.appspot.com",
-  messagingSenderId: "221952632429",
+  apiKey: apiKey,
+  authDomain: authDomain,
+  databaseUrl: databaseUrl,
+  projectId: projectId,
+  storageBucket: storageBucket,
+  messagingSenderId: messagingSenderId,
 };
 
 if (!firebase.apps.length) {
@@ -33,6 +43,8 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
           <Stack.Screen name="Camera" component={Camera} />

@@ -1,6 +1,7 @@
 export const lightGreen = "#C9EBB4";
 export const green = "#b3d89c";
 export const darkGreen = "#70B247";
+export const budGreen = "#82B167";
 
 export const lightBlue = "#57AFCA";
 export const blue = "#3b7080";

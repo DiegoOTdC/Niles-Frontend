@@ -5,7 +5,6 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  ActivityIndicator,
   TouchableWithoutFeedback,
   ImageBackground,
 } from "react-native";
@@ -26,14 +25,14 @@ const blue = "#3b7080ff";
 const lightBlue = "#57AFCA";
 const salmon = "#f79f79ff";
 
-export default function RecipeDetails({ route, navigation }) {
+export default function RecipeDetails({ route }) {
   const item = route.params;
   const [details, setDetails] = useState([item]);
   const [check, setCheck] = useState(false);
   const [ingredientLines, setIngredientLines] = useState({});
   const [moreInfo, setMoreInfo] = useState(false);
 
-  const [fontsLoaded] = useFonts({
+  useFonts({
     AlfaSlabOne_400Regular,
     Alata_400Regular,
   });
@@ -42,33 +41,12 @@ export default function RecipeDetails({ route, navigation }) {
     const items = item.ingredients.map((ingredient) => {
       return ingredient.text;
     });
-
-    console.log("what is items here?", items);
-
     const object = items.reduce(
       (a, key) => Object.assign(a, { [key]: false }),
       {}
     );
-
-    console.log("what is obejct", object);
-
     setIngredientLines(object);
-
-    // const what = items.map((i) => {
-    //   if(Object.prototype.hasOwnProperty.call(object, i)){
-
-    //   }
-    // });
-
-    // console.log("what is whatttttttt", what);
-
-    // for (const [key, value] of Object.entries(object)) {
-    //   setIngredientLines([...ingredientLines, { [key]: value }]);
-    //   console.log(`what is going on here! ${key}: ${value}`);
-    // }
   }, [item]);
-
-  console.log("what is ingredientlines", ingredientLines);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#b3d89cff" }}>
@@ -254,16 +232,12 @@ export default function RecipeDetails({ route, navigation }) {
                       : require("../../images/placeholder.png");
                     const thisIngredientLine = ingredient.text;
 
-                    const thisthing = ingredientLines[thisIngredientLine];
-                    console.log("what is thisthing", thisthing);
-
                     return (
                       <TouchableWithoutFeedback
                         key={
                           ingredient.text + ingredient.weight + ingredient.image
                         }
                         onPress={() => {
-                          console.log("pressed");
                           setCheck(!check);
                           ingredientLines[thisIngredientLine] === false
                             ? setIngredientLines({

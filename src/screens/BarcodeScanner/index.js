@@ -2,26 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBarcodeLabels } from "../../store/labels/actions";
 import { selectUrl } from "../../store/labels/selectors";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  TouchableHighlight,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { blue, lightBrown, lightBlue } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 
 export default function BarcodeScanner({ navigation }) {
-  const imageUri = useSelector(selectUrl);
-  console.log("is the imageUri here in barcodescanner?", imageUri);
-  const checkUrl = imageUri && imageUri.split(":");
   const dispatch = useDispatch();
   useFonts({ Alata_400Regular });
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [fontColor, setFontColor] = useState(lightBrown);
+  const imageUri = useSelector(selectUrl);
 
   useEffect(() => {
     (async () => {
@@ -30,20 +22,14 @@ export default function BarcodeScanner({ navigation }) {
     })();
   }, []);
 
-  const handleBarCodeScanned = async ({ type, data }) => {
-    console.log(`type: ${type} with barcode number: ${data}`);
+  const handleBarCodeScanned = async ({ data }) => {
     setScanned(true);
     dispatch(fetchBarcodeLabels(data));
   };
 
   useEffect(() => {
-    console.log("what is checkURL??", checkUrl);
-    if (scanned && checkUrl && checkUrl[0] === "https") {
+    if (scanned && imageUri) {
       setScanned(false);
-      console.log(
-        "what do we have here before navigating to preview?",
-        imageUri
-      );
       navigation.navigate("Preview", { imageUri });
     }
   }, [imageUri]);
@@ -102,11 +88,6 @@ export default function BarcodeScanner({ navigation }) {
             Tap to Scan Again
           </Text>
         </TouchableHighlight>
-        // <Button
-        //   style={{ selfAlign: "center", width: "50%" }}
-        //   title={"Tap to Scan Again"}
-        //   onPress={() => setScanned(false)}
-        // />
       )}
     </View>
   );

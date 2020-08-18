@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -12,19 +12,11 @@ import { getRecipes } from "../../store/recipes/actions";
 import { removeLabels } from "../../store/labels/actions";
 import { selectLabels } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
-import { selectUrl } from "../../store/labels/selectors";
 
 export default function index({ route, navigation }) {
   const { imageUri } = route.params || {};
-  console.log("what is route.params", route.params);
-  console.log("what is imageURI in preview???", imageUri);
   const labels = useSelector(selectLabels);
   const nameOfProduct = useSelector(selectNameOfProduct);
-  const urlll = useSelector(selectUrl);
-
-  console.log("labels", labels);
-  console.log("nameOfProduct", nameOfProduct);
-  console.log("urlll", urlll);
 
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");

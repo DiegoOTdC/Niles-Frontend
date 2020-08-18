@@ -5,7 +5,7 @@ import { selectRecipes } from "../../store/recipes/selectors";
 import Recipe from "../../components/Recipe";
 import Loading from "../../components/Loading";
 
-export default function Recipes({ route, navigation }) {
+export default function Recipes({ navigation }) {
   const recipes = useSelector(selectRecipes);
 
   if (!recipes) {

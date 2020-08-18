@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBarcodeLabels } from "../../store/labels/actions";
+import { removeLabels } from "../../store/labels/actions";
 import { selectUrl } from "../../store/labels/selectors";
-import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
+import { selectMessage } from "../../store/labels/selectors";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  Alert,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { blue, lightBrown, lightBlue } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
@@ -15,6 +23,13 @@ export default function BarcodeScanner({ navigation }) {
   const [fontColor, setFontColor] = useState(lightBrown);
   const imageUri = useSelector(selectUrl);
 
+  const message = useSelector(selectMessage);
+
+  if (message) {
+    Alert.alert(message);
+    dispatch(removeLabels());
+  }
+
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -23,8 +38,8 @@ export default function BarcodeScanner({ navigation }) {
   }, []);
 
   const handleBarCodeScanned = async ({ data }) => {
-    setScanned(true);
     dispatch(fetchBarcodeLabels(data));
+    setScanned(true);
   };
 
   useEffect(() => {

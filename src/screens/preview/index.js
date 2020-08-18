@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -6,12 +6,16 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
 import { removeLabels } from "../../store/labels/actions";
+import { removeRecipes } from "../../store/recipes/actions";
 import { selectLabels } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
+import { selectRecipes } from "../../store/recipes/selectors";
+import Loading from "../../components/Loading";
 
 export default function index({ route, navigation }) {
   const { imageUri } = route.params || {};
@@ -20,11 +24,29 @@ export default function index({ route, navigation }) {
 
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const recipes = useSelector(selectRecipes);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
+    setLoading(true);
     dispatch(getRecipes(foodLabel));
-    navigation.navigate("Recipes");
+  }
+
+  useEffect(() => {
+    if (recipes && recipes.message) {
+      setLoading(false);
+      Alert.alert(recipes.message);
+      dispatch(removeRecipes());
+    } else if (recipes) {
+      setLoading(false);
+      navigation.navigate("Recipes");
+    }
+  }, [recipes]);
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (

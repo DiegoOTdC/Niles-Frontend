@@ -27,7 +27,6 @@ export const fetchImageLabels = (imageUrl) => {
 export const fetchBarcodeLabels = (barcode) => {
   return async (dispatch, getState) => {
     const response = await axios.get(`${server}/analyse/barcode/${barcode}`);
-
     dispatch(setLabels(response.data));
   };
 };

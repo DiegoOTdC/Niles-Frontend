@@ -13,6 +13,7 @@ import { getRecipes } from "../../store/recipes/actions";
 import { removeLabels } from "../../store/labels/actions";
 import { removeRecipes } from "../../store/recipes/actions";
 import { selectLabels } from "../../store/labels/selectors";
+import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
 import Loading from "../../components/Loading";
@@ -20,8 +21,8 @@ import Loading from "../../components/Loading";
 export default function index({ route, navigation }) {
   const { imageUri } = route.params || {};
   const labels = useSelector(selectLabels);
+  const message = useSelector(selectMessage);
   const nameOfProduct = useSelector(selectNameOfProduct);
-
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");
   const [loading, setLoading] = useState(false);
@@ -39,7 +40,7 @@ export default function index({ route, navigation }) {
       setLoading(false);
       Alert.alert(recipes.message);
       dispatch(removeRecipes());
-    } else if (recipes) {
+    } else if (recipes && loading) {
       setLoading(false);
       navigation.navigate("Recipes");
     }
@@ -47,6 +48,10 @@ export default function index({ route, navigation }) {
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (message) {
+    Alert.alert(message);
   }
 
   return (

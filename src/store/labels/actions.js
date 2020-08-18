@@ -19,7 +19,6 @@ export const fetchImageLabels = (imageUrl) => {
     const response = await axios.post(`${server}/analyse/image`, {
       imageUrl,
     });
-
     dispatch(setLabels(response.data));
   };
 };

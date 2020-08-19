@@ -198,7 +198,12 @@ export default function RecipeDetails({ route }) {
                 linkText={(url) => (url === sourceUrl ? source : url)}
               >
                 <Text
-                  style={{ fontSize: 18, textAlign: "center", color: green }}
+                  style={{
+                    marginBottom: 10,
+                    fontSize: 18,
+                    textAlign: "center",
+                    color: green,
+                  }}
                 >
                   Read full recipe on {sourceUrl}!
                 </Text>
@@ -242,7 +247,10 @@ export default function RecipeDetails({ route }) {
                     return (
                       <TouchableWithoutFeedback
                         key={
-                          ingredient.text + ingredient.weight + ingredient.image
+                          ingredient.text +
+                          ingredient.weight +
+                          ingredient.image +
+                          Math.random()
                         }
                         onPress={() => {
                           setCheck(!check);
@@ -550,7 +558,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: Alfa,
     paddingHorizontal: 20,
-    paddingBottom: 5,
     textAlign: "center",
   },
   middle: {

@@ -157,7 +157,9 @@ export default function index({ route, navigation }) {
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "flex-start",
+              justifyContent: "center",
+              marginHorizontal: 40,
+              paddingRight: 10,
               flexWrap: "wrap",
             }}
           >

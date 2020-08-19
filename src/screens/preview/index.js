@@ -5,7 +5,6 @@ import {
   View,
   Button,
   Image,
-  ScrollView,
   ActivityIndicator,
   Alert,
 } from "react-native";
@@ -83,18 +82,15 @@ export default function index({ route, navigation }) {
         flex: 1,
       }}
     >
-      {!imageUri ? (
-        <Text>This is the name of the product: {nameOfProduct}</Text>
-      ) : (
-        <Image
-          style={{ width: "100%", height: "50%" }}
-          source={
-            imageUri === {}
-              ? require("../../images/placeholder.png")
-              : { uri: imageUri }
-          }
-        />
-      )}
+      <Image
+        style={{ width: "100%", height: "50%" }}
+        source={
+          imageUri === {}
+            ? require("../../images/placeholder.png")
+            : { uri: imageUri }
+        }
+      />
+
       <View
         style={{
           width: "100%",
@@ -103,8 +99,15 @@ export default function index({ route, navigation }) {
         }}
       >
         <Text>Please select the label that fits your product best!</Text>
+
         {labels ? (
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View
+            style={{
+              flexDirection: "Row",
+              justifyContent: "flex-start",
+              flexWrap: "wrap",
+            }}
+          >
             {labels.map((label) => {
               return (
                 <View
@@ -120,7 +123,7 @@ export default function index({ route, navigation }) {
                 </View>
               );
             })}
-          </ScrollView>
+          </View>
         ) : (
           <ActivityIndicator />
         )}

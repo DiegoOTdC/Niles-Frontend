@@ -13,7 +13,6 @@ import { selectUrl } from "../../store/labels/selectors";
 export default function App({ navigation }) {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
   const [loading, setLoading] = useState(false);
   const user = useSelector(selectUser);
   const url = useSelector(selectUrl);
@@ -98,7 +97,7 @@ export default function App({ navigation }) {
       <View style={{ flex: 1 }}>
         <Camera
           style={{ flex: 1 }}
-          type={type}
+          type={Camera.Constants.Type.back}
           flashMode={Camera.Constants.FlashMode.auto}
           ref={(ref) => {
             this.camera = ref;
@@ -111,26 +110,6 @@ export default function App({ navigation }) {
               flexDirection: "row",
             }}
           >
-            <TouchableOpacity
-              style={{
-                flex: 0.1,
-                alignSelf: "flex-end",
-                alignItems: "center",
-              }}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-            >
-              <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-                {" "}
-                Flip{" "}
-              </Text>
-            </TouchableOpacity>
-
             <TouchableOpacity
               style={{
                 flex: 0.1,

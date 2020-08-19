@@ -183,7 +183,7 @@ export default function RecipeDetails({ route }) {
             <View style={styles.header}>
               <Text
                 adjustsFontSizeToFit={true}
-                numberOfLines={1}
+                numberOfLines={2}
                 style={styles.headerText}
               >
                 {title}
@@ -542,7 +542,6 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: red,
     width: "100%",
-    height: 100,
     flexDirection: "column",
     justifyContent: "center",
   },
@@ -551,6 +550,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: Alfa,
     paddingHorizontal: 20,
+    paddingBottom: 5,
     textAlign: "center",
   },
   middle: {

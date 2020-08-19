@@ -58,6 +58,7 @@ export default function index({ route, navigation }) {
 
   if (message) {
     Alert.alert(message);
+    dispatch(removeMessage());
   }
 
   function goToBarcodeScanner() {

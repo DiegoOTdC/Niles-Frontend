@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 import placeholder from "../../images/placeholder.png";
 
-import { green, red } from "../../colours";
+import { green, lightGreen, red, salmon } from "../../colours";
 import {
   useFonts,
   AlfaSlabOne_400Regular,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontFamily: alfa,
     fontSize: 20,
-    color: "white",
+    color: "#f8f8ff",
     paddingHorizontal: 10,
     paddingBottom: 10,
   },

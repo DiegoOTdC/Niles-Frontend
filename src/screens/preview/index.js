@@ -214,25 +214,48 @@ export default function index({ route, navigation }) {
           >
             Search for recipes with
           </Text>
-          <View
-            style={{
-              backgroundColor: blue,
-              marginTop: 10,
-              marginLeft: 10,
-              borderRadius: 25,
-              padding: 10,
-            }}
-          >
+          {foodLabel ? (
+            <View
+              style={{
+                backgroundColor: blue,
+                marginTop: 10,
+                marginHorizontal: 10,
+                borderRadius: 25,
+                padding: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: alata,
+                  fontSize: 15,
+                  color: green,
+                }}
+              >
+                {foodLabel}
+              </Text>
+            </View>
+          ) : (
             <Text
               style={{
                 fontFamily: alata,
                 fontSize: 15,
-                color: green,
+                color: blue,
+                paddingTop: 20,
               }}
             >
-              {`${foodLabel}?`}
+              .....
             </Text>
-          </View>
+          )}
+          <Text
+            style={{
+              fontFamily: alata,
+              fontSize: 15,
+              color: blue,
+              paddingTop: 20,
+            }}
+          >
+            ?
+          </Text>
         </View>
         <View
           style={{

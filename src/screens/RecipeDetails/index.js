@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Hyperlink from "react-native-hyperlink";
+import Loading from "../../components/Loading";
 import {
   Text,
   View,
@@ -8,22 +10,24 @@ import {
   TouchableWithoutFeedback,
   ImageBackground,
 } from "react-native";
+
+import {
+  green,
+  red,
+  darkGreen,
+  lightGreen,
+  blue,
+  lightBlue,
+  salmon,
+} from "../../colours";
+
 import {
   useFonts,
   AlfaSlabOne_400Regular,
 } from "@expo-google-fonts/alfa-slab-one";
 import { Alata_400Regular } from "@expo-google-fonts/alata";
-import Hyperlink from "react-native-hyperlink";
-
 const Alfa = "AlfaSlabOne_400Regular";
 const Alata = "Alata_400Regular";
-const green = "#b3d89cff";
-const darkGreen = "#70B247";
-const lightGreen = "#C9EBB4";
-const red = "#a53f2bff";
-const blue = "#3b7080ff";
-const lightBlue = "#57AFCA";
-const salmon = "#f79f79ff";
 
 export default function RecipeDetails({ route }) {
   const item = route.params;
@@ -32,7 +36,7 @@ export default function RecipeDetails({ route }) {
   const [ingredientLines, setIngredientLines] = useState({});
   const [moreInfo, setMoreInfo] = useState(false);
 
-  useFonts({
+  const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
     Alata_400Regular,
   });
@@ -48,6 +52,9 @@ export default function RecipeDetails({ route }) {
     setIngredientLines(object);
   }, [item]);
 
+  if (!fontsLoaded) {
+    return <Loading />;
+  }
   return (
     <View style={{ flex: 1, backgroundColor: "#b3d89cff" }}>
       {details.map((item) => {

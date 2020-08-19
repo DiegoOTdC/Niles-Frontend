@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Text, View, TouchableOpacity } from "react-native";
-import { Camera } from "expo-camera";
-import { useDispatch } from "react-redux";
-import { fetchImageLabels } from "../../store/labels/actions";
 import * as firebase from "firebase";
+import { Camera } from "expo-camera";
 import Loading from "../../components/Loading";
+
+import { fetchImageLabels } from "../../store/labels/actions";
+import { removeUrl } from "../../store/labels/actions";
+import { selectUser } from "../../store/user/selectors";
+import { selectUrl } from "../../store/labels/selectors";
 
 export default function App({ navigation }) {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
   const [loading, setLoading] = useState(false);
+  const user = useSelector(selectUser);
+  const url = useSelector(selectUrl);
+  const firebaseUrl = url && url.split(".");
 
-  useEffect(() => {
-    setLoading(false);
-  }, [navigation]);
+  //Only remove the image and url from firebase (and store), not our barcode image url.
+  if (url && firebaseUrl[0] === "https://firebasestorage") {
+    dispatch(removeUrl());
+    const imageRef = firebase
+      .storage()
+      .ref()
+      .child("images/" + `image-user${user.id}`);
+
+    imageRef && imageRef.delete();
+  }
 
   useEffect(() => {
     (async () => {
@@ -36,15 +49,15 @@ export default function App({ navigation }) {
         const image = await this.camera.takePictureAsync();
         const imageUri = image.uri;
 
-        if (imageUri) {
+        if (imageUri && user) {
           setLoading(true);
-          this.uploadImage(imageUri, "test-image2")
+          this.uploadImage(imageUri, `image-user${user.id}`)
             .then(() => {
               console.log("Success!");
               const imageRef = firebase
                 .storage()
                 .ref()
-                .child("images/" + "test-image2");
+                .child("images/" + `image-user${user.id}`);
               imageRef
                 .getDownloadURL()
                 .then((url) => {
@@ -84,7 +97,7 @@ export default function App({ navigation }) {
       <View style={{ flex: 1 }}>
         <Camera
           style={{ flex: 1 }}
-          type={type}
+          type={Camera.Constants.Type.back}
           flashMode={Camera.Constants.FlashMode.auto}
           ref={(ref) => {
             this.camera = ref;
@@ -97,26 +110,6 @@ export default function App({ navigation }) {
               flexDirection: "row",
             }}
           >
-            <TouchableOpacity
-              style={{
-                flex: 0.1,
-                alignSelf: "flex-end",
-                alignItems: "center",
-              }}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-            >
-              <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-                {" "}
-                Flip{" "}
-              </Text>
-            </TouchableOpacity>
-
             <TouchableOpacity
               style={{
                 flex: 0.1,

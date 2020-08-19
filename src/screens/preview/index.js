@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Text,
   View,
@@ -8,26 +9,31 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../components/Loading";
+
 import { getRecipes } from "../../store/recipes/actions";
+
+import { removeUrl } from "../../store/labels/actions";
+import { removeNameOfProduct } from "../../store/labels/actions";
 import { removeLabels } from "../../store/labels/actions";
-import { removeRecipes } from "../../store/recipes/actions";
+import { removeMessage } from "../../store/labels/actions";
+
 import { selectLabels } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
-import Loading from "../../components/Loading";
 
 export default function index({ route, navigation }) {
   const { imageUri } = route.params || {};
+  const dispatch = useDispatch();
+
   const labels = useSelector(selectLabels);
   const message = useSelector(selectMessage);
   const nameOfProduct = useSelector(selectNameOfProduct);
-  const dispatch = useDispatch();
+  const recipes = useSelector(selectRecipes);
+
   const [foodLabel, setFoodLabel] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const recipes = useSelector(selectRecipes);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
@@ -39,7 +45,7 @@ export default function index({ route, navigation }) {
     if (recipes && recipes.message) {
       setLoading(false);
       Alert.alert(recipes.message);
-      dispatch(removeRecipes());
+      dispatch(removeMessage());
     } else if (recipes && loading) {
       setLoading(false);
       navigation.navigate("Recipes");
@@ -52,6 +58,22 @@ export default function index({ route, navigation }) {
 
   if (message) {
     Alert.alert(message);
+  }
+
+  function goToBarcodeScanner() {
+    setFoodLabel("");
+    dispatch(removeLabels());
+    dispatch(removeUrl());
+    dispatch(removeNameOfProduct());
+    navigation.navigate("BarcodeScanner");
+  }
+
+  function goToCamera() {
+    setFoodLabel("");
+    dispatch(removeLabels());
+    dispatch(removeUrl());
+    dispatch(removeNameOfProduct());
+    navigation.navigate("Camera");
   }
 
   return (
@@ -122,13 +144,9 @@ export default function index({ route, navigation }) {
             title="TRY AGAIN"
             onPress={() => {
               if (nameOfProduct) {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                navigation.navigate("BarcodeScanner");
+                goToBarcodeScanner();
               } else {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                navigation.navigate("Camera");
+                goToCamera();
               }
             }}
           />
@@ -136,13 +154,9 @@ export default function index({ route, navigation }) {
             title={nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
             onPress={() => {
               if (nameOfProduct) {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                navigation.navigate("Camera");
+                goToCamera();
               } else {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                navigation.navigate("BarcodeScanner");
+                goToBarcodeScanner();
               }
             }}
           />

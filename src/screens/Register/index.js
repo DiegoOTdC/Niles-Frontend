@@ -9,22 +9,13 @@ import {
   TextInput,
   ActivityIndicator,
   TouchableWithoutFeedback,
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
   Keyboard,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { green, darkGreen, budGreen, brown, blue } from "../../colours";
-import { AlfaSlabOne_400Regular } from "@expo-google-fonts/alfa-slab-one";
-import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
-import { Rochester_400Regular } from "@expo-google-fonts/rochester";
-import { GreatVibes_400Regular } from "@expo-google-fonts/great-vibes";
 
-const alfa = "AlfaSlabOne_400Regular";
+import { green, budGreen, brown } from "../../colours";
+import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
-const rochester = "Rochester_400Regular";
-const greatVibes = "GreatVibes_400Regular";
 
 export default function Register({ navigation }) {
   const dispatch = useDispatch();
@@ -35,10 +26,7 @@ export default function Register({ navigation }) {
   const token = useSelector(selectToken);
 
   const [fontsLoaded] = useFonts({
-    AlfaSlabOne_400Regular,
     Alata_400Regular,
-    Rochester_400Regular,
-    GreatVibes_400Regular,
   });
 
   function onPress(name, email, password) {
@@ -49,7 +37,6 @@ export default function Register({ navigation }) {
   }
 
   useEffect(() => {
-    console.log("what is in token?", token);
     if (token !== null) {
       navigation.navigate("HomeScreen");
     }

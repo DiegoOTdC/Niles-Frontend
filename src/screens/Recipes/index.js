@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { selectRecipes } from "../../store/recipes/selectors";
+import { StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import Recipe from "../../components/Recipe";
 import Loading from "../../components/Loading";
 

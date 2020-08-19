@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import Loading from "../../components/Loading";
 import {
   Text,
   View,
@@ -24,13 +25,13 @@ const alata = "Alata_400Regular";
 
 export default function BarcodeScanner({ navigation }) {
   const dispatch = useDispatch();
-  useFonts({ Alata_400Regular });
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [fontColor, setFontColor] = useState(lightBrown);
   const imageUri = useSelector(selectUrl);
   const labels = useSelector(selectLabels);
   const message = useSelector(selectMessage);
+  const [fontsLoaded] = useFonts({ Alata_400Regular });
 
   if (message) {
     Alert.alert(message);
@@ -63,6 +64,10 @@ export default function BarcodeScanner({ navigation }) {
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
+  }
+
+  if (!fontsLoaded) {
+    return <Loading />;
   }
 
   return (

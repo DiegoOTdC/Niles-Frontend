@@ -153,6 +153,7 @@ export default function index({ route, navigation }) {
               } else {
                 setFoodLabel("");
                 dispatch(removeLabels());
+                dispatch(removeMessage());
                 navigation.navigate("BarcodeScanner");
               }
             }}

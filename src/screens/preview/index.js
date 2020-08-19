@@ -7,6 +7,8 @@ import {
   Image,
   ActivityIndicator,
   Alert,
+  TouchableWithoutFeedback,
+  SafeAreaView,
 } from "react-native";
 import Loading from "../../components/Loading";
 
@@ -22,6 +24,11 @@ import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
 
+import { green, darkGreen, blue } from "../../colours";
+
+import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
+const alata = "Alata_400Regular";
+
 export default function index({ route, navigation }) {
   const { imageUri } = route.params || {};
   const dispatch = useDispatch();
@@ -33,6 +40,11 @@ export default function index({ route, navigation }) {
 
   const [foodLabel, setFoodLabel] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    Alata_400Regular,
+  });
+  console.log("what is labels", labels);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
@@ -76,10 +88,15 @@ export default function index({ route, navigation }) {
     navigation.navigate("Camera");
   }
 
+  if (!fontsLoaded) {
+    return <Loading />;
+  }
+
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
+        backgroundColor: green,
       }}
     >
       <Image
@@ -95,15 +112,24 @@ export default function index({ route, navigation }) {
         style={{
           width: "100%",
           height: "50%",
-          backgroundColor: "white",
         }}
       >
-        <Text>Please select the label that fits your product best!</Text>
+        <Text
+          style={{
+            fontFamily: alata,
+            fontSize: 20,
+            textAlign: "center",
+            margin: 10,
+            color: blue,
+          }}
+        >
+          Please select the label that fits your product best!
+        </Text>
 
         {labels ? (
           <View
             style={{
-              flexDirection: "Row",
+              flexDirection: "row",
               justifyContent: "flex-start",
               flexWrap: "wrap",
             }}
@@ -112,14 +138,29 @@ export default function index({ route, navigation }) {
               return (
                 <View
                   key={label + Math.random()}
-                  style={{ height: 50, backgroundColor: "orange", margin: 10 }}
+                  style={{
+                    backgroundColor: darkGreen,
+                    marginTop: 10,
+                    marginLeft: 10,
+                    borderRadius: 25,
+                    padding: 10,
+                  }}
                 >
-                  <Button
-                    title={label}
+                  <TouchableWithoutFeedback
                     onPress={() => {
                       setFoodLabel(label);
                     }}
-                  />
+                  >
+                    <Text
+                      style={{
+                        fontFamily: alata,
+                        fontSize: 15,
+                        color: green,
+                      }}
+                    >
+                      {label}
+                    </Text>
+                  </TouchableWithoutFeedback>
                 </View>
               );
             })}
@@ -170,6 +211,6 @@ export default function index({ route, navigation }) {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

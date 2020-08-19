@@ -32,7 +32,6 @@ const Alata = "Alata_400Regular";
 export default function RecipeDetails({ route }) {
   const item = route.params;
   const [details, setDetails] = useState([item]);
-  const [check, setCheck] = useState(false);
   const [ingredientLines, setIngredientLines] = useState({});
   const [moreInfo, setMoreInfo] = useState(false);
 
@@ -45,6 +44,7 @@ export default function RecipeDetails({ route }) {
     const items = item.ingredients.map((ingredient) => {
       return ingredient.text;
     });
+    console.log("what is items", items);
     const object = items.reduce(
       (a, key) => Object.assign(a, { [key]: false }),
       {}
@@ -253,7 +253,6 @@ export default function RecipeDetails({ route }) {
                           Math.random()
                         }
                         onPress={() => {
-                          setCheck(!check);
                           ingredientLines[thisIngredientLine] === false
                             ? setIngredientLines({
                                 ...ingredientLines,

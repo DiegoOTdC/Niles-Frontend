@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import { Camera } from "expo-camera";
 import { useDispatch, useSelector } from "react-redux";
+import { Text, View, TouchableOpacity } from "react-native";
+import * as firebase from "firebase";
+import { Camera } from "expo-camera";
+import Loading from "../../components/Loading";
+
 import { fetchImageLabels } from "../../store/labels/actions";
 import { removeUrl } from "../../store/labels/actions";
 import { selectUser } from "../../store/user/selectors";
 import { selectUrl } from "../../store/labels/selectors";
-import { selectLabels } from "../../store/labels/selectors";
-import * as firebase from "firebase";
-import Loading from "../../components/Loading";
 
 export default function App({ navigation }) {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [loading, setLoading] = useState(false);
+  const user = useSelector(selectUser);
   const url = useSelector(selectUrl);
-
-  const labels = useSelector(selectLabels);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [navigation]);
-
   const firebaseUrl = url && url.split(".");
 
   //Only remove the image and url from firebase (and store), not our barcode image url.

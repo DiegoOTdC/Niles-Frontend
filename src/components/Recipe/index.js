@@ -1,10 +1,13 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 import placeholder from "../../images/placeholder.png";
+
+import { green, red } from "../../colours";
 import {
   useFonts,
   AlfaSlabOne_400Regular,
 } from "@expo-google-fonts/alfa-slab-one";
+const alfa = "AlfaSlabOne_400Regular";
 
 export default function Recipe(props) {
   const [fontsLoaded] = useFonts({
@@ -31,14 +34,14 @@ export default function Recipe(props) {
 const styles = StyleSheet.create({
   recipeCard: {
     flex: 0.5,
-    backgroundColor: "#a53f2bff",
+    backgroundColor: red,
     margin: 10,
   },
   image: { width: "100%", height: 150 },
-  touch: { backgroundColor: "#b3d89cff", width: "50%" },
+  touch: { backgroundColor: green, width: "50%" },
   title: {
     alignSelf: "center",
-    fontFamily: "AlfaSlabOne_400Regular",
+    fontFamily: alfa,
     fontSize: 20,
     color: "white",
     padding: 10,

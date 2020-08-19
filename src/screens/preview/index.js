@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Text,
   View,
@@ -8,27 +9,29 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../components/Loading";
+
 import { getRecipes } from "../../store/recipes/actions";
-import {
-  removeLabels,
-  removeUrl,
-  removeNameOfProduct,
-} from "../../store/labels/actions";
-import { removeMessage } from "../../store/recipes/actions";
+
+import { removeUrl } from "../../store/labels/actions";
+import { removeNameOfProduct } from "../../store/labels/actions";
+import { removeLabels } from "../../store/labels/actions";
+import { removeMessage } from "../../store/labels/actions";
+
 import { selectLabels } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
-import Loading from "../../components/Loading";
 
 export default function index({ route, navigation }) {
   const { imageUri } = route.params || {};
+  const dispatch = useDispatch();
+
   const labels = useSelector(selectLabels);
   const message = useSelector(selectMessage);
   const nameOfProduct = useSelector(selectNameOfProduct);
   const recipes = useSelector(selectRecipes);
-  const dispatch = useDispatch();
+
   const [foodLabel, setFoodLabel] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,10 +40,6 @@ export default function index({ route, navigation }) {
     setLoading(true);
     dispatch(getRecipes(foodLabel));
   }
-  console.log("what is in message", message);
-  console.log("what is in recipes", recipes);
-
-  console.log("what is in nameofproduct", nameOfProduct);
 
   useEffect(() => {
     if (recipes && recipes.message) {
@@ -137,6 +136,7 @@ export default function index({ route, navigation }) {
               } else {
                 setFoodLabel("");
                 dispatch(removeLabels());
+                dispatch(removeMessage());
                 navigation.navigate("Camera");
               }
             }}

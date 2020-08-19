@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBarcodeLabels } from "../../store/labels/actions";
-import { removeLabels } from "../../store/labels/actions";
-import { removeMessage } from "../../store/labels/actions";
-import { selectUrl, selectLabels } from "../../store/labels/selectors";
-import { selectMessage } from "../../store/labels/selectors";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import {
   Text,
   View,
@@ -12,10 +8,19 @@ import {
   TouchableHighlight,
   Alert,
 } from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
+
+import { fetchBarcodeLabels } from "../../store/labels/actions";
+import { removeLabels } from "../../store/labels/actions";
+import { removeMessage } from "../../store/labels/actions";
+import { removeRecipes } from "../../store/recipes/actions";
+
+import { selectUrl } from "../../store/labels/selectors";
+import { selectLabels } from "../../store/labels/selectors";
+import { selectMessage } from "../../store/labels/selectors";
+
 import { blue, lightBrown, lightBlue } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
-import { removeRecipes } from "../../store/recipes/actions";
+const alata = "Alata_400Regular";
 
 export default function BarcodeScanner({ navigation }) {
   const dispatch = useDispatch();
@@ -25,7 +30,6 @@ export default function BarcodeScanner({ navigation }) {
   const [fontColor, setFontColor] = useState(lightBrown);
   const imageUri = useSelector(selectUrl);
   const labels = useSelector(selectLabels);
-
   const message = useSelector(selectMessage);
 
   if (message) {
@@ -47,21 +51,11 @@ export default function BarcodeScanner({ navigation }) {
     setScanned(true);
   };
 
-  console.log("what is scanned?", scanned);
-  console.log("what is imageUri", imageUri);
-  console.log("what is message", message);
-
   useEffect(() => {
-    console.log("do we get here?");
-    setTimeout(() => {
-      if (message) {
-        console.log("this is the message", message);
-      } else if (scanned && imageUri && !message && labels) {
-        console.log("what about here?");
-        setScanned(false);
-        navigation.navigate("Preview", { imageUri });
-      }
-    }, 1000);
+    if (scanned && imageUri && !message && labels) {
+      setScanned(false);
+      navigation.navigate("Preview", { imageUri });
+    }
   }, [scanned, handleBarCodeScanned]);
 
   if (hasPermission === null) {
@@ -84,7 +78,7 @@ export default function BarcodeScanner({ navigation }) {
         style={{
           textAlign: "center",
           color: lightBrown,
-          fontFamily: "Alata_400Regular",
+          fontFamily: alata,
           fontSize: 35,
           marginTop: 25,
         }}
@@ -112,7 +106,7 @@ export default function BarcodeScanner({ navigation }) {
               textAlign: "center",
               color: fontColor,
               fontSize: 35,
-              fontFamily: "Alata_400Regular",
+              fontFamily: alata,
             }}
           >
             Tap to Scan Again

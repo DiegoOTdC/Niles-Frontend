@@ -25,7 +25,7 @@ import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
 
-import { green, darkGreen, blue } from "../../colours";
+import { green, darkGreen, blue, lightGreen, darkBlue } from "../../colours";
 
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
@@ -151,7 +151,7 @@ export default function index({ route, navigation }) {
         <Text
           style={{
             fontFamily: alata,
-            fontSize: 20,
+            fontSize: 21,
             textAlign: "center",
             margin: 10,
             color: blue,
@@ -192,7 +192,7 @@ export default function index({ route, navigation }) {
                       style={{
                         fontFamily: alata,
                         fontSize: 15,
-                        color: green,
+                        color: lightGreen,
                       }}
                     >
                       {label}
@@ -205,75 +205,81 @@ export default function index({ route, navigation }) {
         ) : (
           <ActivityIndicator />
         )}
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignSelf: "center",
-            marginBottom: 20,
-          }}
+        <TouchableWithoutFeedback
+          onPress={(event) => fetchRecipes(event, foodLabel)}
         >
-          <Text
+          <View
             style={{
-              fontFamily: alata,
-              fontSize: 15,
-              color: blue,
-              paddingTop: 20,
+              flexDirection: "row",
+              alignSelf: "center",
+              marginTop: 20,
+              borderRadius: 25,
+              backgroundColor: foodLabel ? blue : green,
+              paddingHorizontal: 20,
+              paddingVertical: 1,
             }}
           >
-            Search for recipes with
-          </Text>
-          {foodLabel ? (
-            <View
-              style={{
-                backgroundColor: blue,
-                marginTop: 10,
-                marginHorizontal: 10,
-                borderRadius: 25,
-                padding: 10,
-              }}
-            >
-              <Text
-                style={{
-                  fontFamily: alata,
-                  fontSize: 15,
-                  color: green,
-                }}
-              >
-                {foodLabel}
-              </Text>
-            </View>
-          ) : (
             <Text
               style={{
                 fontFamily: alata,
                 fontSize: 15,
-                color: blue,
-                paddingTop: 20,
+                color: foodLabel ? darkGreen : blue,
+                paddingVertical: 10,
               }}
             >
-              .....
+              Search for recipes with
             </Text>
-          )}
-          <Text
-            style={{
-              fontFamily: alata,
-              fontSize: 15,
-              color: blue,
-              paddingTop: 20,
-            }}
-          >
-            ?
-          </Text>
-        </View>
+            {foodLabel ? (
+              <View
+                style={{
+                  backgroundColor: blue,
+                  marginHorizontal: 10,
+                  borderRadius: 25,
+                  padding: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: alata,
+                    fontSize: 15,
+                    color: lightGreen,
+                  }}
+                >
+                  {foodLabel}
+                </Text>
+              </View>
+            ) : (
+              <Text
+                style={{
+                  fontFamily: alata,
+                  fontSize: 15,
+                  color: blue,
+                  paddingVertical: 10,
+                }}
+              >
+                .....
+              </Text>
+            )}
+            <Text
+              style={{
+                fontFamily: alata,
+                fontSize: 15,
+                color: foodLabel ? darkGreen : blue,
+                paddingVertical: 10,
+              }}
+            >
+              {foodLabel ? "!" : "?"}
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+
         <View
           style={{
             flexDirection: "row",
             justifyContent: "center",
           }}
         >
-          <Button
-            title="TRY AGAIN"
+          <TouchableWithoutFeedback
             onPress={() => {
               if (nameOfProduct) {
                 goToBarcodeScanner();
@@ -281,9 +287,31 @@ export default function index({ route, navigation }) {
                 goToCamera();
               }
             }}
-          />
-          <Button
-            title={nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
+          >
+            <Text
+              style={{
+                fontFamily: alata,
+                fontSize: 20,
+                textAlign: "center",
+                margin: 10,
+                color: blue,
+              }}
+            >
+              Try again
+            </Text>
+          </TouchableWithoutFeedback>
+          <Text
+            style={{
+              fontFamily: alata,
+              fontSize: 20,
+              textAlign: "center",
+              margin: 10,
+              color: blue,
+            }}
+          >
+            or
+          </Text>
+          <TouchableWithoutFeedback
             onPress={() => {
               if (nameOfProduct) {
                 goToCamera();
@@ -291,11 +319,22 @@ export default function index({ route, navigation }) {
                 goToBarcodeScanner();
               }
             }}
-          />
-          <Button
-            title="NILES FETCH RECIPES!"
-            onPress={(event) => fetchRecipes(event, foodLabel)}
-          />
+          >
+            <Text
+              style={{
+                fontFamily: alata,
+                fontSize: 20,
+                textAlign: "center",
+                margin: 10,
+                color: blue,
+              }}
+            >
+              {nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
+            </Text>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback>
+            <Text></Text>
+          </TouchableWithoutFeedback>
         </View>
       </ScrollView>
     </SafeAreaView>

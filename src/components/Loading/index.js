@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ActivityIndicator } from "react-native";
+import { Text, View, ActivityIndicator, Image } from "react-native";
 import { green, blue } from "../../colours";
 
 export default function Loading() {
@@ -8,12 +8,14 @@ export default function Loading() {
       style={{
         flex: 1,
         justifyContent: "center",
+        alignItems: "center",
         backgroundColor: green,
       }}
     >
-      <Text style={{ color: blue }}>Niles: </Text>
-      <Text style={{ color: blue }}>"Going as fast as I can.."</Text>
-      <ActivityIndicator size="large" color={blue} />
+      <Image
+        style={{ width: 377, height: 480 }}
+        source={require("../../images/trialGif.gif")}
+      />
     </View>
   );
 }

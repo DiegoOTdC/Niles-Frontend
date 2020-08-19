@@ -40,18 +40,17 @@ export default function index({ route, navigation }) {
 
   const [foodLabel, setFoodLabel] = useState("");
   const [loading, setLoading] = useState(false);
-  const [allLabels, setAllLabels] = useState({});
+  const [allLabels, setAllLabels] = useState(null);
 
   const [fontsLoaded] = useFonts({
     Alata_400Regular,
   });
-  console.log("what is labels", labels);
+  // console.log("what is labels", labels);
 
   useEffect(() => {
     const object =
       labels &&
       labels.reduce((a, key) => Object.assign(a, { [key]: false }), {});
-    console.log("what is object", object);
     setAllLabels(object);
   }, [labels]);
 
@@ -101,7 +100,23 @@ export default function index({ route, navigation }) {
     return <Loading />;
   }
 
-  console.log("what is in alllabels", allLabels);
+  // console.log("what is in alllabels", allLabels);
+
+  function chooseLabel(label) {
+    if (allLabels) {
+      for (const [key, value] of Object.entries(allLabels)) {
+        Object.values(allLabels).forEach((value) => {
+          if (allLabels[label]) {
+            setAllLabels({ ...allLabels, [key]: false });
+          } else {
+            setAllLabels({ ...allLabels, [key]: false, [label]: true });
+          }
+        });
+      }
+    }
+  }
+
+  console.log(allLabels);
 
   return (
     <SafeAreaView
@@ -137,7 +152,7 @@ export default function index({ route, navigation }) {
           Please select the label that fits your product best!
         </Text>
 
-        {labels ? (
+        {labels && labels ? (
           <View
             style={{
               flexDirection: "row",
@@ -159,9 +174,7 @@ export default function index({ route, navigation }) {
                 >
                   <TouchableWithoutFeedback
                     onPress={() => {
-                      allLabels[label] === false
-                        ? setAllLabels({ ...allLabels, [label]: true })
-                        : setAllLabels({ ...allLabels, [label]: false });
+                      chooseLabel(label);
                     }}
                   >
                     <Text

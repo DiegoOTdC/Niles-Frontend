@@ -22,6 +22,12 @@ export default function App({ navigation }) {
   //Only remove the image and url from firebase (and store), not our barcode image url.
   if (url && firebaseUrl[0] === "https://firebasestorage") {
     dispatch(removeUrl());
+    const imageRef = firebase
+      .storage()
+      .ref()
+      .child("images/" + `image-user${user.id}`);
+
+    imageRef && imageRef.delete();
   }
 
   useEffect(() => {

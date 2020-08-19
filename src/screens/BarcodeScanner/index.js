@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBarcodeLabels } from "../../store/labels/actions";
 import { removeLabels } from "../../store/labels/actions";
 import { removeMessage } from "../../store/labels/actions";
-import { selectUrl } from "../../store/labels/selectors";
+import { selectUrl, selectLabels } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
 import {
   Text,
@@ -24,6 +24,7 @@ export default function BarcodeScanner({ navigation }) {
   const [scanned, setScanned] = useState(false);
   const [fontColor, setFontColor] = useState(lightBrown);
   const imageUri = useSelector(selectUrl);
+  const labels = useSelector(selectLabels);
 
   const message = useSelector(selectMessage);
 
@@ -55,13 +56,13 @@ export default function BarcodeScanner({ navigation }) {
     setTimeout(() => {
       if (message) {
         console.log("this is the message", message);
-      } else if (scanned && imageUri && !message) {
+      } else if (scanned && imageUri && !message && labels) {
         console.log("what about here?");
         setScanned(false);
         navigation.navigate("Preview", { imageUri });
       }
     }, 1000);
-  }, [scanned]);
+  }, [scanned, handleBarCodeScanned]);
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;

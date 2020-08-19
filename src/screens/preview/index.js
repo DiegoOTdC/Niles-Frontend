@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
-import { removeLabels } from "../../store/labels/actions";
+import { removeLabels, removeUrl } from "../../store/labels/actions";
 import { removeMessage } from "../../store/recipes/actions";
 import { selectLabels } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
@@ -125,6 +125,7 @@ export default function index({ route, navigation }) {
               if (nameOfProduct) {
                 setFoodLabel("");
                 dispatch(removeLabels());
+                dispatch(removeUrl);
                 navigation.navigate("BarcodeScanner");
               } else {
                 setFoodLabel("");

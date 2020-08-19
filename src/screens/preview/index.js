@@ -60,6 +60,22 @@ export default function index({ route, navigation }) {
     Alert.alert(message);
   }
 
+  function goToBarcodeScanner() {
+    setFoodLabel("");
+    dispatch(removeLabels());
+    dispatch(removeUrl());
+    dispatch(removeNameOfProduct());
+    navigation.navigate("BarcodeScanner");
+  }
+
+  function goToCamera() {
+    setFoodLabel("");
+    dispatch(removeLabels());
+    dispatch(removeUrl());
+    dispatch(removeNameOfProduct());
+    navigation.navigate("Camera");
+  }
+
   return (
     <View
       style={{
@@ -128,16 +144,9 @@ export default function index({ route, navigation }) {
             title="TRY AGAIN"
             onPress={() => {
               if (nameOfProduct) {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                dispatch(removeUrl());
-                dispatch(removeNameOfProduct());
-                navigation.navigate("BarcodeScanner");
+                goToBarcodeScanner();
               } else {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                dispatch(removeMessage());
-                navigation.navigate("Camera");
+                goToCamera();
               }
             }}
           />
@@ -145,16 +154,9 @@ export default function index({ route, navigation }) {
             title={nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
             onPress={() => {
               if (nameOfProduct) {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                dispatch(removeUrl());
-                dispatch(removeNameOfProduct());
-                navigation.navigate("Camera");
+                goToCamera();
               } else {
-                setFoodLabel("");
-                dispatch(removeLabels());
-                dispatch(removeMessage());
-                navigation.navigate("BarcodeScanner");
+                goToBarcodeScanner();
               }
             }}
           />

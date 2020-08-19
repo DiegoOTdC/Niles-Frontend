@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     height: 280,
     borderTopLeftRadius: 90,
     borderTopRightRadius: 90,
+    borderRadius: 10,
   },
   image: {
     width: "100%",
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   },
   touch: { backgroundColor: green, width: "50%" },
   title: {
-    alignSelf: "center",
+    textAlign: "center",
     fontFamily: alfa,
     fontSize: 20,
     color: "#f8f8ff",

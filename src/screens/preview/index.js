@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../store/recipes/actions";
 import { removeLabels } from "../../store/labels/actions";
-import { removeRecipes } from "../../store/recipes/actions";
+import { removeMessage } from "../../store/recipes/actions";
 import { selectLabels } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
@@ -23,23 +23,24 @@ export default function index({ route, navigation }) {
   const labels = useSelector(selectLabels);
   const message = useSelector(selectMessage);
   const nameOfProduct = useSelector(selectNameOfProduct);
+  const recipes = useSelector(selectRecipes);
   const dispatch = useDispatch();
   const [foodLabel, setFoodLabel] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const recipes = useSelector(selectRecipes);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
     setLoading(true);
     dispatch(getRecipes(foodLabel));
   }
+  console.log("what is in message", message);
+  console.log("what is in recipes", recipes);
 
   useEffect(() => {
     if (recipes && recipes.message) {
       setLoading(false);
       Alert.alert(recipes.message);
-      dispatch(removeRecipes());
+      dispatch(removeMessage());
     } else if (recipes && loading) {
       setLoading(false);
       navigation.navigate("Recipes");

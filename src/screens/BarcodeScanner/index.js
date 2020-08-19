@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBarcodeLabels } from "../../store/labels/actions";
 import { removeLabels } from "../../store/labels/actions";
+import { removeMessage } from "../../store/labels/actions";
 import { selectUrl } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
 import {
@@ -14,6 +15,7 @@ import {
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { blue, lightBrown, lightBlue } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
+import { removeRecipes } from "../../store/recipes/actions";
 
 export default function BarcodeScanner({ navigation }) {
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ export default function BarcodeScanner({ navigation }) {
   if (message) {
     Alert.alert(message);
     dispatch(removeLabels());
+    dispatch(removeMessage());
+    dispatch(removeRecipes());
   }
 
   useEffect(() => {
@@ -42,12 +46,22 @@ export default function BarcodeScanner({ navigation }) {
     setScanned(true);
   };
 
+  console.log("what is scanned?", scanned);
+  console.log("what is imageUri", imageUri);
+  console.log("what is message", message);
+
   useEffect(() => {
-    if (scanned && imageUri) {
-      setScanned(false);
-      navigation.navigate("Preview", { imageUri });
-    }
-  }, [imageUri]);
+    console.log("do we get here?");
+    setTimeout(() => {
+      if (message) {
+        console.log("this is the message", message);
+      } else if (scanned && imageUri && !message) {
+        console.log("what about here?");
+        setScanned(false);
+        navigation.navigate("Preview", { imageUri });
+      }
+    }, 1000);
+  }, [scanned]);
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;

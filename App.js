@@ -43,9 +43,9 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
           <Stack.Screen name="Camera" component={Camera} />
           <Stack.Screen name="Preview" component={Preview} />

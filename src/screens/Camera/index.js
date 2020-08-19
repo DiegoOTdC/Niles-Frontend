@@ -1,20 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchImageLabels } from "../../store/labels/actions";
+import { removeUrl } from "../../store/labels/actions";
+import { selectUser } from "../../store/user/selectors";
+import { selectUrl } from "../../store/labels/selectors";
+import { selectLabels } from "../../store/labels/selectors";
 import * as firebase from "firebase";
 import Loading from "../../components/Loading";
 
 export default function App({ navigation }) {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [loading, setLoading] = useState(false);
+  const url = useSelector(selectUrl);
+  console.log("what is url", url);
+
+  const labels = useSelector(selectLabels);
+  console.log("labels in camera", labels);
 
   useEffect(() => {
     setLoading(false);
   }, [navigation]);
+
+  const firebaseUrl = url && url.split(".");
+
+  console.log("what is fireBase url ", firebaseUrl);
+
+  //Only remove the image and url from firebase (and store), not our barcode image url.
+  if (url && firebaseUrl[0] === "https://firebasestorage") {
+    console.log("do we get here?");
+    dispatch(removeUrl());
+    console.log("what is url after removeurl", url);
+  }
 
   useEffect(() => {
     (async () => {
@@ -36,15 +57,15 @@ export default function App({ navigation }) {
         const image = await this.camera.takePictureAsync();
         const imageUri = image.uri;
 
-        if (imageUri) {
+        if (imageUri && user) {
           setLoading(true);
-          this.uploadImage(imageUri, "test-image2")
+          this.uploadImage(imageUri, `image-user${user.id}`)
             .then(() => {
               console.log("Success!");
               const imageRef = firebase
                 .storage()
                 .ref()
-                .child("images/" + "test-image2");
+                .child("images/" + `image-user${user.id}`);
               imageRef
                 .getDownloadURL()
                 .then((url) => {

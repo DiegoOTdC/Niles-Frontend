@@ -40,11 +40,21 @@ export default function index({ route, navigation }) {
 
   const [foodLabel, setFoodLabel] = useState("");
   const [loading, setLoading] = useState(false);
+  const [allLabels, setAllLabels] = useState({});
 
   const [fontsLoaded] = useFonts({
     Alata_400Regular,
   });
   console.log("what is labels", labels);
+
+  useEffect(() => {
+    const object = labels.reduce(
+      (a, key) => Object.assign(a, { [key]: false }),
+      {}
+    );
+    console.log("what is object", object);
+    setAllLabels(object);
+  }, [labels]);
 
   function fetchRecipes(event, foodLabel) {
     event.persist();

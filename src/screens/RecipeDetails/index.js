@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: darkGreen,
-    fontSize: 100,
+    fontSize: 40,
     fontFamily: Alfa,
     paddingHorizontal: 20,
     textAlign: "center",

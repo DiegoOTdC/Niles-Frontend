@@ -25,7 +25,9 @@ export default function Recipe(props) {
           style={styles.image}
           source={{ uri: image ? image : placeholder }}
         />
-        <Text style={styles.title}>{title}</Text>
+        <Text adjustFontSizeToFit={true} numberOfLines={3} style={styles.title}>
+          {title}
+        </Text>
       </View>
     );
   }
@@ -34,16 +36,25 @@ export default function Recipe(props) {
 const styles = StyleSheet.create({
   recipeCard: {
     flex: 0.5,
+    justifyContent: "space-between",
     backgroundColor: red,
     margin: 10,
+    height: 280,
+    borderTopLeftRadius: 90,
+    borderTopRightRadius: 90,
   },
-  image: { width: "100%", height: 150 },
+  image: {
+    width: "100%",
+    height: 180,
+    borderRadius: 90,
+  },
   touch: { backgroundColor: green, width: "50%" },
   title: {
     alignSelf: "center",
     fontFamily: alfa,
     fontSize: 20,
     color: "white",
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
   },
 });

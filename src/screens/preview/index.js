@@ -9,6 +9,7 @@ import {
   Alert,
   TouchableWithoutFeedback,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import Loading from "../../components/Loading";
 
@@ -122,25 +123,31 @@ export default function index({ route, navigation }) {
       style={{
         flex: 1,
         backgroundColor: green,
+        alignItems: "center",
       }}
     >
-      <Image
-        style={{ width: "100%", height: "50%" }}
-        source={
-          imageUri === {}
-            ? require("../../images/placeholder.png")
-            : { uri: imageUri }
-        }
-      />
-
-      <View
+      <ScrollView
+        contentContainerStyle={{ alignItems: "center" }}
         style={{
+          flex: 1,
           width: "100%",
           height: "50%",
-          justifyContent: "space-between",
-          justifyContent: "space-around",
         }}
       >
+        <Image
+          style={{
+            width: 400,
+            height: 400,
+            margin: "2.5%",
+            borderRadius: 200,
+          }}
+          source={
+            imageUri === {}
+              ? require("../../images/placeholder.png")
+              : { uri: imageUri }
+          }
+        />
+
         <Text
           style={{
             fontFamily: alata,
@@ -290,7 +297,7 @@ export default function index({ route, navigation }) {
             onPress={(event) => fetchRecipes(event, foodLabel)}
           />
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

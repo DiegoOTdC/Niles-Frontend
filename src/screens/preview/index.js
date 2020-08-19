@@ -48,10 +48,9 @@ export default function index({ route, navigation }) {
   console.log("what is labels", labels);
 
   useEffect(() => {
-    const object = labels.reduce(
-      (a, key) => Object.assign(a, { [key]: false }),
-      {}
-    );
+    const object =
+      labels &&
+      labels.reduce((a, key) => Object.assign(a, { [key]: false }), {});
     console.log("what is object", object);
     setAllLabels(object);
   }, [labels]);
@@ -101,6 +100,8 @@ export default function index({ route, navigation }) {
   if (!fontsLoaded) {
     return <Loading />;
   }
+
+  console.log("what is in alllabels", allLabels);
 
   return (
     <SafeAreaView
@@ -158,7 +159,9 @@ export default function index({ route, navigation }) {
                 >
                   <TouchableWithoutFeedback
                     onPress={() => {
-                      setFoodLabel(label);
+                      allLabels[label] === false
+                        ? setAllLabels({ ...allLabels, [label]: true })
+                        : setAllLabels({ ...allLabels, [label]: false });
                     }}
                   >
                     <Text

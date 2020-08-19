@@ -44,7 +44,7 @@ export default function RecipeDetails({ route }) {
     const items = item.ingredients.map((ingredient) => {
       return ingredient.text;
     });
-    console.log("what is items", items);
+
     const object = items.reduce(
       (a, key) => Object.assign(a, { [key]: false }),
       {}

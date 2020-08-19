@@ -17,10 +17,8 @@ export default function App({ navigation }) {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [loading, setLoading] = useState(false);
   const url = useSelector(selectUrl);
-  console.log("what is url", url);
 
   const labels = useSelector(selectLabels);
-  console.log("labels in camera", labels);
 
   useEffect(() => {
     setLoading(false);
@@ -28,13 +26,9 @@ export default function App({ navigation }) {
 
   const firebaseUrl = url && url.split(".");
 
-  console.log("what is fireBase url ", firebaseUrl);
-
   //Only remove the image and url from firebase (and store), not our barcode image url.
   if (url && firebaseUrl[0] === "https://firebasestorage") {
-    console.log("do we get here?");
     dispatch(removeUrl());
-    console.log("what is url after removeurl", url);
   }
 
   useEffect(() => {

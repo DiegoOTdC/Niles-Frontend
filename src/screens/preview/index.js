@@ -45,7 +45,6 @@ export default function index({ route, navigation }) {
   const [fontsLoaded] = useFonts({
     Alata_400Regular,
   });
-  // console.log("what is labels", labels);
 
   useEffect(() => {
     const object =
@@ -100,23 +99,23 @@ export default function index({ route, navigation }) {
     return <Loading />;
   }
 
-  // console.log("what is in alllabels", allLabels);
-
   function chooseLabel(label) {
     if (allLabels) {
       for (const [key, value] of Object.entries(allLabels)) {
-        Object.values(allLabels).forEach((value) => {
-          if (allLabels[label]) {
-            setAllLabels({ ...allLabels, [key]: false });
-          } else {
-            setAllLabels({ ...allLabels, [key]: false, [label]: true });
-          }
-        });
+        if (allLabels[label]) {
+          setAllLabels({ ...allLabels, [key]: false });
+          setFoodLabel("");
+        } else {
+          setAllLabels({ ...allLabels, [key]: false, [label]: true });
+          setFoodLabel(label);
+        }
       }
     }
   }
 
   console.log(allLabels);
+
+  console.log("what is foodlabel", foodLabel);
 
   return (
     <SafeAreaView
@@ -138,6 +137,8 @@ export default function index({ route, navigation }) {
         style={{
           width: "100%",
           height: "50%",
+          justifyContent: "space-between",
+          justifyContent: "space-around",
         }}
       >
         <Text
@@ -165,7 +166,8 @@ export default function index({ route, navigation }) {
                 <View
                   key={label + Math.random()}
                   style={{
-                    backgroundColor: darkGreen,
+                    backgroundColor:
+                      allLabels && allLabels[label] ? blue : darkGreen,
                     marginTop: 10,
                     marginLeft: 10,
                     borderRadius: 25,
@@ -197,18 +199,45 @@ export default function index({ route, navigation }) {
 
         <View
           style={{
-            justifyContent: "center",
+            flexDirection: "row",
             alignSelf: "center",
+            marginBottom: 20,
           }}
         >
-          <Text>Search for recipes with {foodLabel}?</Text>
+          <Text
+            style={{
+              fontFamily: alata,
+              fontSize: 15,
+              color: blue,
+              paddingTop: 20,
+            }}
+          >
+            Search for recipes with
+          </Text>
+          <View
+            style={{
+              backgroundColor: blue,
+              marginTop: 10,
+              marginLeft: 10,
+              borderRadius: 25,
+              padding: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: alata,
+                fontSize: 15,
+                color: green,
+              }}
+            >
+              {`${foodLabel}?`}
+            </Text>
+          </View>
         </View>
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
             justifyContent: "center",
-            justifyContent: "space-around",
           }}
         >
           <Button

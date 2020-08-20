@@ -21,7 +21,6 @@ export default function StackNavigator() {
 
   return (
     <NavigationContainer>
-      <MessageBox />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         {!token ? <Stack.Screen name="Login" component={Login} /> : null}

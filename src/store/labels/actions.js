@@ -1,5 +1,10 @@
 import axios from "axios";
 import { server } from "@env";
+import {
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../appState/actions";
 
 export const FETCH_LABELS_SUCCESS = "FETCH_LABELS_SUCCESS";
 export const REMOVE_LABELS_SUCCESS = "REMOVE_LABELS_SUCCESS";
@@ -39,7 +44,21 @@ export const fetchImageLabels = (imageUrl) => {
 
 export const fetchBarcodeLabels = (barcode) => {
   return async (dispatch, getState) => {
-    const response = await axios.get(`${server}/analyse/barcode/${barcode}`);
-    dispatch(setLabels(response.data));
+    try {
+      const response = await axios.get(`${server}/analyse/barcode/${barcode}`);
+
+      console.log("what is in the response?", response.data);
+      if (response && response.data.message) {
+        console.log("do we get here?");
+        dispatch(
+          showMessageWithTimeout("warning", response.data.message, 3000)
+        );
+      } else {
+        console.log("or here?");
+        dispatch(setLabels(response.data));
+      }
+    } catch (e) {
+      console.log("error while fetching barcodes:", e);
+    }
   };
 };

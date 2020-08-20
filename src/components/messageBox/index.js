@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectMessage } from "../../store/appState/selectors";
 import { View, Text, ActivityIndicator } from "react-native";
@@ -7,8 +7,28 @@ import { red, green, blue } from "../../colours";
 
 export default function MessageBox() {
   const message = useSelector(selectMessage);
-  const showMessage = message !== null;
-  if (!showMessage) return null;
+  const text = message && message.text;
+  const variant = message && message.variant;
+
+  const setColor = (variant) => {
+    if (variant === "warning") return red;
+    if (variant === "success") return blue;
+    if (variant === "danger") return green;
+  };
+  const setBackgroundColor = (variant) => {
+    if (variant === "warning") return blue;
+    if (variant === "success") return green;
+    if (variant === "danger") return red;
+  };
+
+  const setFlex = (text) => {
+    if (text) return 0.1;
+    if (!text) return 0;
+  };
+  const setHeight = (text) => {
+    if (text) return 10;
+    if (!text) return 0;
+  };
 
   const [fontsLoaded] = useFonts({
     Alata_400Regular,
@@ -18,41 +38,13 @@ export default function MessageBox() {
     return <ActivityIndicator />;
   }
 
-  const backgroundColor = () => {
-    if (message.variant === "success") {
-      return green;
-    }
-
-    if (message.variant === "danger") {
-      return red;
-    }
-
-    if (message.variant === "warning") {
-      return blue;
-    }
-  };
-
-  const color = () => {
-    if (showMessage.variant === "success") {
-      return blue;
-    }
-
-    if (showMessage.variant === "danger") {
-      return green;
-    }
-
-    if (showMessage.variant === "warning") {
-      return red;
-    }
-  };
-
   return (
     <View
       style={{
-        flex: 0.1,
-        height: 10,
+        flex: setFlex(text),
+        height: setHeight(text),
         justifyContent: "center",
-        backgroundColor: { backgroundColor },
+        backgroundColor: setBackgroundColor(variant),
       }}
     >
       <Text
@@ -60,11 +52,12 @@ export default function MessageBox() {
         style={{
           textAlign: "center",
           fontFamily: "Alata_400Regular",
-          color: { color },
+          color: setColor(variant),
           fontSize: 20,
+          paddingHorizontal: 15,
         }}
       >
-        {showMessage.text}
+        {text}
       </Text>
     </View>
   );

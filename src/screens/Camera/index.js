@@ -7,17 +7,20 @@ import Loading from "../../components/Loading";
 
 import { fetchImageLabels } from "../../store/labels/actions";
 import { removeUrl } from "../../store/labels/actions";
+import { appLoading, appDoneLoading } from "../../store/appState/actions";
 import { selectUser } from "../../store/user/selectors";
 import { selectUrl } from "../../store/labels/selectors";
+import { selectAppLoading } from "../../store/appState/selectors";
 
 export default function CameraScreen({ navigation }) {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [opacity, setOpacity] = useState(1);
-  const [loading, setLoading] = useState(false);
   const user = useSelector(selectUser);
   const url = useSelector(selectUrl);
   const firebaseUrl = url && url.split(".");
+
+  const isLoading = useSelector(selectAppLoading);
 
   //Only remove the image and url from firebase (and store), not our barcode image url.
   if (url && firebaseUrl[0] === "https://firebasestorage") {
@@ -51,7 +54,7 @@ export default function CameraScreen({ navigation }) {
         const imageUri = image.uri;
 
         if (imageUri && user) {
-          setLoading(true);
+          dispatch(appLoading());
           this.uploadImage(imageUri, `image-user${user.id}`)
             .then(() => {
               console.log("Success!");
@@ -65,7 +68,7 @@ export default function CameraScreen({ navigation }) {
                   dispatch(fetchImageLabels(url));
                 })
                 .then(() => {
-                  setLoading(false);
+                  dispatch(appDoneLoading());
                   navigation.navigate("Preview", { imageUri });
                 })
                 .catch((e) =>
@@ -93,7 +96,7 @@ export default function CameraScreen({ navigation }) {
     return ref.put(blob);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   } else {
     return (

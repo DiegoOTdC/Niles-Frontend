@@ -7,6 +7,7 @@ import { REMOVE_NAME_OF_PRODUCT_SUCCESS } from "./actions";
 const initialState = {};
 
 export default (state = initialState, action) => {
+  console.log("what is state", state);
   switch (action.type) {
     case REMOVE_NAME_OF_PRODUCT_SUCCESS:
       return { ...state, name: null };

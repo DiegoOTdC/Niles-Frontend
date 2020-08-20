@@ -21,6 +21,7 @@ export const removeRecipes = () => ({
 export const getRecipes = (foodLabel) => {
   return async (dispatch, getState) => {
     try {
+      dispatch(appLoading());
       const response = await axios.post(`${server}/recipes`, {
         foodLabel,
       });
@@ -32,11 +33,13 @@ export const getRecipes = (foodLabel) => {
       } else {
         dispatch(fetchRecipes(response.data));
       }
+      dispatch(appDoneLoading());
     } catch (e) {
       console.log(e);
       dispatch(
         showMessageWithTimeout("danger", "Sorry, something went wrong!", 3000)
       );
+      dispatch(appDoneLoading());
     }
   };
 };

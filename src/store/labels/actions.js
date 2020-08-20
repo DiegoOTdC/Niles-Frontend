@@ -35,8 +35,8 @@ export const removeUrl = () => ({
 
 export const fetchImageLabels = (imageUrl) => {
   return async (dispatch, getState) => {
-    dispatch(appLoading());
     try {
+      dispatch(appLoading());
       const response = await axios.post(`${server}/analyse/image`, {
         imageUrl,
       });
@@ -59,8 +59,8 @@ export const fetchImageLabels = (imageUrl) => {
 
 export const fetchBarcodeLabels = (barcode) => {
   return async (dispatch, getState) => {
-    dispatch(appLoading());
     try {
+      dispatch(appLoading());
       const response = await axios.get(`${server}/analyse/barcode/${barcode}`);
 
       if (response && response.data.message) {

@@ -6,7 +6,6 @@ import { Camera } from "expo-camera";
 import Loading from "../../components/Loading";
 
 import { fetchImageLabels } from "../../store/labels/actions";
-import { removeUrl } from "../../store/labels/actions";
 import { appLoading, appDoneLoading } from "../../store/appState/actions";
 import { selectUser } from "../../store/user/selectors";
 import { selectUrl } from "../../store/labels/selectors";
@@ -24,7 +23,6 @@ export default function CameraScreen({ navigation }) {
 
   //Only remove the image and url from firebase (and store), not our barcode image url.
   if (url && firebaseUrl[0] === "https://firebasestorage") {
-    dispatch(removeUrl());
     const imageRef = firebase
       .storage()
       .ref()

@@ -2,13 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import Loading from "../../components/Loading";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  Alert,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
 
 import { fetchBarcodeLabels } from "../../store/labels/actions";
 
@@ -17,7 +11,7 @@ import { selectLabels } from "../../store/labels/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
 import { selectMessage } from "../../store/appState/selectors";
 
-import { blue, lightBrown, lightBlue, green, darkBlue } from "../../colours";
+import { blue, green } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
 
@@ -48,7 +42,8 @@ export default function BarcodeScanner({ navigation }) {
     dispatch(fetchBarcodeLabels(data));
     setScanned(true);
   };
-
+  console.log("what is scanned?", scanned);
+  console.log("what is scanner", scanner);
   useEffect(() => {
     if (scanned && imageUri && labels) {
       setScanned(false);

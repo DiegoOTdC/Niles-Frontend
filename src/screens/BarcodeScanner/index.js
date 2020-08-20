@@ -79,7 +79,7 @@ export default function BarcodeScanner({ navigation }) {
   }
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading color={blue} />;
   }
 
   return (

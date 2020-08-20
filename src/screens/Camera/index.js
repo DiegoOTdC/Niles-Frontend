@@ -44,7 +44,7 @@ export default function App({ navigation }) {
     return <Text>No access to camera</Text>;
   }
 
-  const snap = async () => {
+  const scan = async () => {
     if (this.camera) {
       try {
         const image = await this.camera.takePictureAsync();
@@ -114,12 +114,13 @@ export default function App({ navigation }) {
             <TouchableOpacity
               onPressIn={() => setOpacity(0.5)}
               onPressOut={() => setOpacity(1)}
+              onLongPress={scan}
               style={{
                 flex: 1,
                 alignSelf: "center",
                 alignItems: "center",
               }}
-              onPress={snap}
+              onPress={scan}
             >
               <Image
                 style={{ width: 418, height: 570, opacity: opacity }}

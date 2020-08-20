@@ -10,10 +10,27 @@ import {
 } from "@expo-google-fonts/alfa-slab-one";
 const alfa = "AlfaSlabOne_400Regular";
 
+import { useSelector, useDispatch } from "react-redux";
+import { selectToken } from "../../store/user/selectors";
+import { showMessageWithTimeout } from "../../store/appState/actions";
+
 export default function HomeScreen({ navigation }) {
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
   const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
   });
+
+  if (!token) {
+    dispatch(
+      showMessageWithTimeout(
+        "danger",
+        "You are not logged in, please login",
+        3000
+      )
+    );
+    navigation.navigate("Login");
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />;

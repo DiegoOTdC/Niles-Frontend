@@ -36,7 +36,6 @@ export default function Login({ navigation }) {
   }
 
   useEffect(() => {
-    console.log("what is in token?", token);
     if (token !== null) {
       navigation.navigate("HomeScreen");
     }

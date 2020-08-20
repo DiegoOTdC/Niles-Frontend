@@ -32,6 +32,7 @@ export default function BarcodeScanner({ navigation }) {
   const labels = useSelector(selectLabels);
   const message = useSelector(selectMessage);
   const [fontsLoaded] = useFonts({ Alata_400Regular });
+  const [scanner, setScanner] = useState(true);
 
   if (message) {
     Alert.alert(message);
@@ -39,6 +40,10 @@ export default function BarcodeScanner({ navigation }) {
     dispatch(removeMessage());
     dispatch(removeRecipes());
   }
+
+  useEffect(() => {
+    setScanner(true);
+  }, [scanned]);
 
   useEffect(() => {
     (async () => {
@@ -55,6 +60,7 @@ export default function BarcodeScanner({ navigation }) {
   useEffect(() => {
     if (scanned && imageUri && !message && labels) {
       setScanned(false);
+      setScanner(false);
       navigation.navigate("Preview", { imageUri });
     }
   }, [scanned, handleBarCodeScanned]);
@@ -90,10 +96,12 @@ export default function BarcodeScanner({ navigation }) {
       >
         Aim at the barcode!
       </Text>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
+      {scanner ? (
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={StyleSheet.absoluteFillObject}
+        />
+      ) : null}
 
       {scanned && (
         <TouchableHighlight

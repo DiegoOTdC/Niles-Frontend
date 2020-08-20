@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -10,6 +10,7 @@ import Recipes from "../screens/Recipes";
 import RecipeDetails from "../screens/RecipeDetails";
 import Register from "../screens/Register";
 import Login from "../screens/Login";
+import MessageBox from "../components/MessageBox";
 
 import { useSelector } from "react-redux";
 import { selectToken } from "../store/user/selectors";
@@ -20,6 +21,7 @@ export default function StackNavigator() {
 
   return (
     <NavigationContainer>
+      <MessageBox />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         {!token ? <Stack.Screen name="Login" component={Login} /> : null}

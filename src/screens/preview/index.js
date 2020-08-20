@@ -24,6 +24,7 @@ import { selectLabels } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
+import { selectAppLoading } from "../../store/appState/selectors";
 
 import { green, darkGreen, blue, lightGreen, darkBlue } from "../../colours";
 
@@ -38,9 +39,9 @@ export default function index({ route, navigation }) {
   const message = useSelector(selectMessage);
   const nameOfProduct = useSelector(selectNameOfProduct);
   const recipes = useSelector(selectRecipes);
+  const isLoading = useSelector(selectAppLoading);
 
   const [foodLabel, setFoodLabel] = useState("");
-  const [loading, setLoading] = useState(false);
   const [allLabels, setAllLabels] = useState(null);
 
   const [fontsLoaded] = useFonts({
@@ -56,22 +57,19 @@ export default function index({ route, navigation }) {
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
-    setLoading(true);
     dispatch(getRecipes(foodLabel));
   }
 
   useEffect(() => {
     if (recipes && recipes.message) {
-      setLoading(false);
       Alert.alert(recipes.message);
       dispatch(removeMessage());
-    } else if (recipes && loading) {
-      setLoading(false);
+    } else if (recipes && isLoading) {
       navigation.navigate("Recipes");
     }
   }, [recipes]);
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -113,10 +111,6 @@ export default function index({ route, navigation }) {
       }
     }
   }
-
-  console.log(allLabels);
-
-  console.log("what is foodlabel", foodLabel);
 
   return (
     <SafeAreaView

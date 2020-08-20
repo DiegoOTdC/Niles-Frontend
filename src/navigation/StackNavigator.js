@@ -22,9 +22,9 @@ export default function StackNavigator() {
     <NavigationContainer>
       <MessageBox />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
         {!token ? <Stack.Screen name="Login" component={Login} /> : null}
         {!token ? <Stack.Screen name="Register" component={Register} /> : null}
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name="Preview" component={Preview} />

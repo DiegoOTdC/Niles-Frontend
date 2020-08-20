@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text, Image } from "react-native";
 import HomeButton from "../../components/HomeButton";
 import { AppLoading } from "expo";
 
@@ -58,6 +58,9 @@ export default function HomeScreen({ navigation }) {
           color={green}
           font={alfa}
         />
+        <Text style={{ position: "absolute", marginLeft: 300, marginTop: 380 }}>
+          LOGOUT
+        </Text>
       </View>
     );
   }

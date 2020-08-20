@@ -10,7 +10,7 @@ import { removeUrl } from "../../store/labels/actions";
 import { selectUser } from "../../store/user/selectors";
 import { selectUrl } from "../../store/labels/selectors";
 
-export default function App({ navigation }) {
+export default function CameraScreen({ navigation }) {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [opacity, setOpacity] = useState(1);
@@ -64,8 +64,10 @@ export default function App({ navigation }) {
                 .then((url) => {
                   dispatch(fetchImageLabels(url));
                 })
-                .then(() => setLoading(false))
-                .then(() => navigation.navigate("Preview", { imageUri }))
+                .then(() => {
+                  setLoading(false);
+                  navigation.navigate("Preview", { imageUri });
+                })
                 .catch((e) =>
                   console.log("getting downloadURL of image error", e.message)
                 );

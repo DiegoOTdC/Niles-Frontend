@@ -13,8 +13,8 @@ export default function Loading() {
       }}
     >
       <Image
-        style={{ width: 377, height: 480 }}
-        source={require("../../images/trialGif.gif")}
+        style={{ width: 400, height: 400 }}
+        source={require("../../images/scanFoodLoading.gif")}
       />
     </View>
   );

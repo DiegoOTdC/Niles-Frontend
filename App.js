@@ -4,7 +4,6 @@ import store from "./src/store";
 import { YellowBox } from "react-native";
 import * as firebase from "firebase";
 import StackNavigator from "./src/navigation/StackNavigator";
-import MessageBox from "./src/components/MessageBox";
 
 import {
   apiKey,
@@ -33,7 +32,6 @@ function App() {
   YellowBox.ignoreWarnings(["Setting a timer"]);
   return (
     <Provider store={store}>
-      <MessageBox />
       <StackNavigator />
     </Provider>
   );

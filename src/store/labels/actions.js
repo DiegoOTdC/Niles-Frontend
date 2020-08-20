@@ -35,6 +35,7 @@ export const removeUrl = () => ({
 
 export const fetchImageLabels = (imageUrl) => {
   return async (dispatch, getState) => {
+    dispatch(appLoading());
     try {
       const response = await axios.post(`${server}/analyse/image`, {
         imageUrl,
@@ -50,7 +51,7 @@ export const fetchImageLabels = (imageUrl) => {
     } catch (e) {
       console.log(e);
       dispatch(
-        showMessageWithTimeout("danger", "sorry, something went wrong", 3000)
+        showMessageWithTimeout("danger", "sorry, something went wrong!", 3000)
       );
     }
   };
@@ -58,6 +59,7 @@ export const fetchImageLabels = (imageUrl) => {
 
 export const fetchBarcodeLabels = (barcode) => {
   return async (dispatch, getState) => {
+    dispatch(appLoading());
     try {
       const response = await axios.get(`${server}/analyse/barcode/${barcode}`);
 
@@ -68,11 +70,13 @@ export const fetchBarcodeLabels = (barcode) => {
       } else {
         dispatch(setLabels(response.data));
       }
+      dispatch(appDoneLoading());
     } catch (e) {
       console.log("error while fetching barcodes:", e);
       dispatch(
-        showMessageWithTimeout("danger", "sorry, something went wrong", 3000)
+        showMessageWithTimeout("danger", "sorry, something went wrong!", 3000)
       );
+      dispatch(appDoneLoading());
     }
   };
 };

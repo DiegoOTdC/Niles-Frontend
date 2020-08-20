@@ -19,15 +19,9 @@ export const setMessage = (variant, text) => {
 
 export const showMessageWithTimeout = (variant, text, timeOutMilliSeconds) => {
   return (dispatch) => {
-    console.log("do we get here?");
-    console.log("variant", variant);
-    console.log("text", text);
-    console.log("time", timeOutMilliSeconds);
     dispatch(setMessage(variant, text));
 
     const timeout = timeOutMilliSeconds || 2000;
-
-    console.log("what si timoeout", timeout);
 
     setTimeout(() => dispatch(clearMessage()), timeout);
   };

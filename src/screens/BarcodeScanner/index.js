@@ -18,6 +18,7 @@ import { removeRecipes } from "../../store/recipes/actions";
 import { selectUrl } from "../../store/labels/selectors";
 import { selectLabels } from "../../store/labels/selectors";
 import { selectMessage } from "../../store/labels/selectors";
+import { selectAppLoading } from "../../store/appState/selectors";
 
 import { blue, lightBrown, lightBlue, green, darkBlue } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
@@ -31,6 +32,7 @@ export default function BarcodeScanner({ navigation }) {
   const imageUri = useSelector(selectUrl);
   const labels = useSelector(selectLabels);
   const message = useSelector(selectMessage);
+  const isLoading = useSelector(selectAppLoading);
   const [fontsLoaded] = useFonts({ Alata_400Regular });
   const [scanner, setScanner] = useState(true);
 
@@ -73,6 +75,10 @@ export default function BarcodeScanner({ navigation }) {
   }
 
   if (!fontsLoaded) {
+    return <Loading />;
+  }
+
+  if (isLoading) {
     return <Loading />;
   }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import * as firebase from "firebase";
 import { Camera } from "expo-camera";
 import Loading from "../../components/Loading";
@@ -13,6 +13,7 @@ import { selectUrl } from "../../store/labels/selectors";
 export default function App({ navigation }) {
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
+  const [opacity, setOpacity] = useState(1);
   const [loading, setLoading] = useState(false);
   const user = useSelector(selectUser);
   const url = useSelector(selectUrl);
@@ -111,17 +112,19 @@ export default function App({ navigation }) {
             }}
           >
             <TouchableOpacity
+              onPressIn={() => setOpacity(0.5)}
+              onPressOut={() => setOpacity(1)}
               style={{
-                flex: 0.1,
+                flex: 1,
                 alignSelf: "center",
                 alignItems: "center",
               }}
               onPress={snap}
             >
-              <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-                {" "}
-                [SCAN IMAGE]{" "}
-              </Text>
+              <Image
+                style={{ width: 418, height: 570, opacity: opacity }}
+                source={require("../../images/pressToScan.png")}
+              />
             </TouchableOpacity>
           </View>
         </Camera>

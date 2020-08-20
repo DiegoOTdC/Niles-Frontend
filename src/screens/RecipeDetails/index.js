@@ -32,7 +32,6 @@ const Alata = "Alata_400Regular";
 export default function RecipeDetails({ route }) {
   const item = route.params;
   const [details, setDetails] = useState([item]);
-  const [check, setCheck] = useState(false);
   const [ingredientLines, setIngredientLines] = useState({});
   const [moreInfo, setMoreInfo] = useState(false);
 
@@ -45,6 +44,7 @@ export default function RecipeDetails({ route }) {
     const items = item.ingredients.map((ingredient) => {
       return ingredient.text;
     });
+
     const object = items.reduce(
       (a, key) => Object.assign(a, { [key]: false }),
       {}
@@ -183,7 +183,7 @@ export default function RecipeDetails({ route }) {
             <View style={styles.header}>
               <Text
                 adjustsFontSizeToFit={true}
-                numberOfLines={1}
+                numberOfLines={2}
                 style={styles.headerText}
               >
                 {title}
@@ -198,7 +198,12 @@ export default function RecipeDetails({ route }) {
                 linkText={(url) => (url === sourceUrl ? source : url)}
               >
                 <Text
-                  style={{ fontSize: 18, textAlign: "center", color: green }}
+                  style={{
+                    marginBottom: 10,
+                    fontSize: 18,
+                    textAlign: "center",
+                    color: green,
+                  }}
                 >
                   Read full recipe on {sourceUrl}!
                 </Text>
@@ -242,10 +247,12 @@ export default function RecipeDetails({ route }) {
                     return (
                       <TouchableWithoutFeedback
                         key={
-                          ingredient.text + ingredient.weight + ingredient.image
+                          ingredient.text +
+                          ingredient.weight +
+                          ingredient.image +
+                          Math.random()
                         }
                         onPress={() => {
-                          setCheck(!check);
                           ingredientLines[thisIngredientLine] === false
                             ? setIngredientLines({
                                 ...ingredientLines,
@@ -542,13 +549,12 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: red,
     width: "100%",
-    height: 100,
     flexDirection: "column",
     justifyContent: "center",
   },
   headerText: {
     color: darkGreen,
-    fontSize: 100,
+    fontSize: 40,
     fontFamily: Alfa,
     paddingHorizontal: 20,
     textAlign: "center",

@@ -276,7 +276,7 @@ export default function index({ route, navigation }) {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "center",
+            margin: 10,
           }}
         >
           <TouchableWithoutFeedback
@@ -291,10 +291,16 @@ export default function index({ route, navigation }) {
             <Text
               style={{
                 fontFamily: alata,
-                fontSize: 20,
+                fontSize: 18,
                 textAlign: "center",
                 margin: 10,
                 color: blue,
+                borderWidth: 1,
+                borderColor: blue,
+                borderRadius: 25,
+                paddingHorizontal: 20,
+                paddingTop: 3,
+                paddingBottom: 5,
               }}
             >
               Try again
@@ -323,17 +329,20 @@ export default function index({ route, navigation }) {
             <Text
               style={{
                 fontFamily: alata,
-                fontSize: 20,
+                fontSize: 18,
                 textAlign: "center",
                 margin: 10,
                 color: blue,
+                borderWidth: 1,
+                borderColor: blue,
+                borderRadius: 25,
+                paddingHorizontal: 20,
+                paddingTop: 3,
+                paddingBottom: 5,
               }}
             >
               {nameOfProduct ? "Try Camera" : "Try Barcode Scanner"}
             </Text>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback>
-            <Text></Text>
           </TouchableWithoutFeedback>
         </View>
       </ScrollView>

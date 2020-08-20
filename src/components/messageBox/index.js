@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectMessage } from "../../store/appState/selectors";
 import { View, Text, ActivityIndicator } from "react-native";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
-import { red, green, blue } from "../../colours";
+import { red, green, blue, yellow, darkGreen } from "../../colours";
 
 export default function MessageBox() {
   const message = useSelector(selectMessage);
@@ -11,12 +11,12 @@ export default function MessageBox() {
   const variant = message && message.variant;
 
   const setColor = (variant) => {
-    if (variant === "warning") return red;
-    if (variant === "success") return blue;
+    if (variant === "warning") return blue;
+    if (variant === "success") return darkGreen;
     if (variant === "danger") return green;
   };
   const setBackgroundColor = (variant) => {
-    if (variant === "warning") return blue;
+    if (variant === "warning") return yellow;
     if (variant === "success") return green;
     if (variant === "danger") return red;
   };

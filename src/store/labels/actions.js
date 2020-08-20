@@ -35,10 +35,24 @@ export const removeUrl = () => ({
 
 export const fetchImageLabels = (imageUrl) => {
   return async (dispatch, getState) => {
-    const response = await axios.post(`${server}/analyse/image`, {
-      imageUrl,
-    });
-    dispatch(setLabels(response.data));
+    try {
+      const response = await axios.post(`${server}/analyse/image`, {
+        imageUrl,
+      });
+
+      if (response && response.data.message) {
+        dispatch(
+          showMessageWithTimeout("warning", response.data.message, 3000)
+        );
+      } else {
+        dispatch(setLabels(response.data));
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(
+        showMessageWithTimeout("danger", "sorry, something went wrong", 3000)
+      );
+    }
   };
 };
 
@@ -47,18 +61,18 @@ export const fetchBarcodeLabels = (barcode) => {
     try {
       const response = await axios.get(`${server}/analyse/barcode/${barcode}`);
 
-      console.log("what is in the response?", response.data);
       if (response && response.data.message) {
-        console.log("do we get here?");
         dispatch(
           showMessageWithTimeout("warning", response.data.message, 3000)
         );
       } else {
-        console.log("or here?");
         dispatch(setLabels(response.data));
       }
     } catch (e) {
       console.log("error while fetching barcodes:", e);
+      dispatch(
+        showMessageWithTimeout("danger", "sorry, something went wrong", 3000)
+      );
     }
   };
 };

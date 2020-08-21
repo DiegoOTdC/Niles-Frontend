@@ -21,18 +21,19 @@ And then it would really start to feel like a great app. But to make it even bet
 
 ## Tech used
 
-- REACT NATIVE
-- REDUX
-- EXPO
-- FIREBASE
-- EXPRESS
+- React-Native
+- Redux
+- Axios
+- Expo
+- Firebase
+- Express
 - REST API
-- SEQUELIZE
-- POSTGRESQL
-- NODE JS
-- GOOGLE CLOUD VISION
-- EDAMAM RECIPE API
-- OPEN FOOD FACTS API
+- Sequelize
+- PostgreSQL
+- Node js
+- Google Cloud Vision
+- Edamam Recipe API
+- Open Food Facts API
 
 ## Project Board
 

@@ -11,7 +11,15 @@ import { green } from "../../colours";
 import Recipe from "../../components/Recipe";
 import Loading from "../../components/Loading";
 
-export default function Recipes({ navigation }) {
+import { selectLabelsInRecipes } from "../../store/recipes/selectors";
+
+export default function Recipes({ route, navigation }) {
+  const { labels } = route.params;
+
+  const labelsInRecipes = useSelector(selectLabelsInRecipes);
+  console.log("LABELS IN RECIPESSSSSSSSSSS", labelsInRecipes);
+  console.log("paranms", route);
+  console.log("labels in recieps", labels);
   const recipes = useSelector(selectRecipes);
 
   if (!recipes) {

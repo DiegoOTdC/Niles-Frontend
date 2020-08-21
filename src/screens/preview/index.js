@@ -18,13 +18,21 @@ import { selectLabels } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
+import { selectLabelState } from "../../store/labels/selectors";
 
 import { green, darkGreen, blue, lightGreen } from "../../colours";
-
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
 
+import { useIsFocused } from "@react-navigation/native";
+
+import { setLabelsInRecipes } from "../../store/recipes/actions";
+import { selectLabelsInRecipes } from "../../store/recipes/selectors";
+
 export default function index({ route, navigation }) {
+  const isFocused = useIsFocused();
+  const labelsInRecipes = useSelector(selectLabelsInRecipes);
+  console.log("labels in recipes in the preview", labelsInRecipes);
   const { imageUri } = route.params || {};
   const dispatch = useDispatch();
 
@@ -32,6 +40,13 @@ export default function index({ route, navigation }) {
   const nameOfProduct = useSelector(selectNameOfProduct);
   const recipes = useSelector(selectRecipes);
   const isLoading = useSelector(selectAppLoading);
+  const labelState = useSelector(selectLabelState);
+  // console.log("labestate", labelState);
+
+  useEffect(() => {
+    console.log("is focused?", isFocused);
+    !isFocused && !labelsInRecipes && dispatch(removeLabels());
+  }, [isFocused]);
 
   const [foodLabel, setFoodLabel] = useState("");
   const [allLabels, setAllLabels] = useState(null);
@@ -54,7 +69,8 @@ export default function index({ route, navigation }) {
 
   useEffect(() => {
     if (recipes && isLoading) {
-      navigation.navigate("Recipes");
+      dispatch(setLabelsInRecipes(labels));
+      navigation.navigate("Recipes", labels);
     }
   }, [recipes]);
 
@@ -91,6 +107,9 @@ export default function index({ route, navigation }) {
       }
     }
   }
+
+  // console.log("name of product", nameOfProduct);
+  console.log("labels", labels);
 
   return (
     <SafeAreaView

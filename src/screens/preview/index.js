@@ -12,27 +12,18 @@ import {
 import Loading from "../../components/Loading";
 
 import { getRecipes } from "../../store/recipes/actions";
-import { removeLabels } from "../../store/labels/actions";
+import { setLabelsInRecipes } from "../../store/recipes/actions";
 
 import { selectLabels } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
-import { selectLabelState } from "../../store/labels/selectors";
 
 import { green, darkGreen, blue, lightGreen } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
 
-import { useIsFocused } from "@react-navigation/native";
-
-import { setLabelsInRecipes } from "../../store/recipes/actions";
-import { selectLabelsInRecipes } from "../../store/recipes/selectors";
-
 export default function index({ route, navigation }) {
-  const isFocused = useIsFocused();
-  const labelsInRecipes = useSelector(selectLabelsInRecipes);
-  console.log("labels in recipes in the preview", labelsInRecipes);
   const { imageUri } = route.params || {};
   const dispatch = useDispatch();
 
@@ -40,13 +31,6 @@ export default function index({ route, navigation }) {
   const nameOfProduct = useSelector(selectNameOfProduct);
   const recipes = useSelector(selectRecipes);
   const isLoading = useSelector(selectAppLoading);
-  const labelState = useSelector(selectLabelState);
-  // console.log("labestate", labelState);
-
-  useEffect(() => {
-    console.log("is focused?", isFocused);
-    !isFocused && !labelsInRecipes && dispatch(removeLabels());
-  }, [isFocused]);
 
   const [foodLabel, setFoodLabel] = useState("");
   const [allLabels, setAllLabels] = useState(null);
@@ -70,7 +54,7 @@ export default function index({ route, navigation }) {
   useEffect(() => {
     if (recipes && isLoading) {
       dispatch(setLabelsInRecipes(labels));
-      navigation.navigate("Recipes", labels);
+      navigation.navigate("Recipes");
     }
   }, [recipes]);
 
@@ -80,13 +64,11 @@ export default function index({ route, navigation }) {
 
   function goToBarcodeScanner() {
     setFoodLabel("");
-    dispatch(removeLabels());
     navigation.navigate("BarcodeScanner");
   }
 
   function goToCamera() {
     setFoodLabel("");
-    dispatch(removeLabels());
     navigation.navigate("Camera");
   }
 

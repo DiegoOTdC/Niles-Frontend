@@ -5,7 +5,8 @@ import Loading from "../../components/Loading";
 import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
 
 import { fetchBarcodeLabels } from "../../store/labels/actions";
-
+import { removeLabels } from "../../store/labels/actions";
+import { removeRecipes } from "../../store/recipes/actions";
 import { selectUrl } from "../../store/labels/selectors";
 import { selectLabels } from "../../store/labels/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
@@ -15,7 +16,10 @@ import { blue, green } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
 
+import { useIsFocused } from "@react-navigation/native";
+
 export default function BarcodeScanner({ navigation }) {
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -26,6 +30,13 @@ export default function BarcodeScanner({ navigation }) {
   const message = useSelector(selectMessage);
   const [fontsLoaded] = useFonts({ Alata_400Regular });
   const [scanner, setScanner] = useState(true);
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(removeLabels());
+      dispatch(removeRecipes());
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     setScanner(true);
@@ -42,8 +53,7 @@ export default function BarcodeScanner({ navigation }) {
     dispatch(fetchBarcodeLabels(data));
     setScanned(true);
   };
-  console.log("what is scanned?", scanned);
-  console.log("what is scanner", scanner);
+
   useEffect(() => {
     if (scanned && imageUri && labels) {
       setScanned(false);

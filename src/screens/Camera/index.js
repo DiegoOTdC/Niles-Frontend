@@ -7,6 +7,8 @@ import Loading from "../../components/Loading";
 
 import { fetchImageLabels } from "../../store/labels/actions";
 import { appLoading, appDoneLoading } from "../../store/appState/actions";
+import { removeLabels } from "../../store/labels/actions";
+import { removeRecipes } from "../../store/recipes/actions";
 import { selectUser } from "../../store/user/selectors";
 import { selectUrl } from "../../store/labels/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
@@ -22,6 +24,13 @@ export default function CameraScreen({ navigation }) {
   const url = useSelector(selectUrl);
   const isLoading = useSelector(selectAppLoading);
   const firebaseUrl = url && url.split(".");
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(removeLabels());
+      dispatch(removeRecipes());
+    }
+  }, [isFocused]);
 
   //Only remove the image and url from firebase (and store), not our barcode image url.
   if (url && firebaseUrl[0] === "https://firebasestorage") {

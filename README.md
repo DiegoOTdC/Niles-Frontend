@@ -1,6 +1,6 @@
 # Niles - the Digital Manservant
 
-**Overview**
+## Overview
 
 Niles - the Digital Manservant is an app build with the intention to make life a little bit easier. As a person who loves to cook, but who is getting tired of having to make shopping lists and finding recipes with what I have in store. I wanted to create an app that helps me with this process, so I have more time to spend on actual cooking. (or other things)
 

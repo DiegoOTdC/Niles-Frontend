@@ -5,8 +5,6 @@ const initialState = { imageUrl: null, recipes: null };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "SET_LABELS_IN_RECIPES":
-      return { ...state, labels: action.payload };
     case REMOVE_RECIPES_SUCCESS:
       return initialState;
     case FETCH_RECIPES_SUCCESS:

@@ -12,7 +12,6 @@ import {
 import Loading from "../../components/Loading";
 
 import { getRecipes } from "../../store/recipes/actions";
-import { setLabelsInRecipes } from "../../store/recipes/actions";
 
 import { selectLabels } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
@@ -53,7 +52,6 @@ export default function index({ route, navigation }) {
 
   useEffect(() => {
     if (recipes && isLoading) {
-      dispatch(setLabelsInRecipes(labels));
       navigation.navigate("Recipes");
     }
   }, [recipes]);

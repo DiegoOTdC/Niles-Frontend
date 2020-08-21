@@ -18,11 +18,6 @@ export const removeRecipes = () => ({
   type: REMOVE_RECIPES_SUCCESS,
 });
 
-export const setLabelsInRecipes = (labels) => ({
-  type: "SET_LABELS_IN_RECIPES",
-  payload: labels,
-});
-
 export const getRecipes = (foodLabel) => {
   return async (dispatch, getState) => {
     try {

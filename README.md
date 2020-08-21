@@ -36,7 +36,7 @@ And then it would really start to feel like a great app. But to make it even bet
 
 ## Project Board
 
-Go to [project board] (<https://github.com/users/DiegoOTdC/projects/1>)
+Go to [project board](<https://github.com/users/DiegoOTdC/projects/1>)
 
 ## Wireframe
 

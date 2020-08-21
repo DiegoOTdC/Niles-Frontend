@@ -40,7 +40,7 @@ Go to [project board] (<https://github.com/users/DiegoOTdC/projects/1>)
 
 ## Wireframe
 
-Go to [wireframe](<https://wireframepro.mockflow.com/editor.jsp?editor=off&perm=Owner&projectid=M66f4c119388556d53ef8602ab0b386281597043905404&publicid=ad14c3fc5fac4a9cac032004379c3874#/page/De36801225c9e96e06665bd016a7d83b0>)
+Go to [wireframe](<https://wireframepro.mockflow.com/view/M66f4c119388556d53ef8602ab0b386281597043905404#/page/De36801225c9e96e06665bd016a7d83b0>)
 
 ## Datamodel
 

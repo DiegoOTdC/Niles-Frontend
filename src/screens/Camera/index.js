@@ -11,15 +11,17 @@ import { selectUser } from "../../store/user/selectors";
 import { selectUrl } from "../../store/labels/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
 
+import { useIsFocused } from "@react-navigation/native";
+
 export default function CameraScreen({ navigation }) {
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [opacity, setOpacity] = useState(1);
   const user = useSelector(selectUser);
   const url = useSelector(selectUrl);
-  const firebaseUrl = url && url.split(".");
-
   const isLoading = useSelector(selectAppLoading);
+  const firebaseUrl = url && url.split(".");
 
   //Only remove the image and url from firebase (and store), not our barcode image url.
   if (url && firebaseUrl[0] === "https://firebasestorage") {
@@ -99,39 +101,41 @@ export default function CameraScreen({ navigation }) {
   } else {
     return (
       <View style={{ flex: 1 }}>
-        <Camera
-          style={{ flex: 1 }}
-          type={Camera.Constants.Type.back}
-          flashMode={Camera.Constants.FlashMode.auto}
-          ref={(ref) => {
-            this.camera = ref;
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "transparent",
-              flexDirection: "row",
+        {isFocused ? (
+          <Camera
+            style={{ flex: 1 }}
+            type={Camera.Constants.Type.back}
+            flashMode={Camera.Constants.FlashMode.auto}
+            ref={(ref) => {
+              this.camera = ref;
             }}
           >
-            <TouchableOpacity
-              onPressIn={() => setOpacity(0.5)}
-              onPressOut={() => setOpacity(1)}
-              onLongPress={scan}
+            <View
               style={{
                 flex: 1,
-                alignSelf: "center",
-                alignItems: "center",
+                backgroundColor: "transparent",
+                flexDirection: "row",
               }}
-              onPress={scan}
             >
-              <Image
-                style={{ width: 418, height: 570, opacity: opacity }}
-                source={require("../../images/pressToScan.png")}
-              />
-            </TouchableOpacity>
-          </View>
-        </Camera>
+              <TouchableOpacity
+                onPressIn={() => setOpacity(0.5)}
+                onPressOut={() => setOpacity(1)}
+                onLongPress={scan}
+                style={{
+                  flex: 1,
+                  alignSelf: "center",
+                  alignItems: "center",
+                }}
+                onPress={scan}
+              >
+                <Image
+                  style={{ width: 418, height: 570, opacity: opacity }}
+                  source={require("../../images/pressToScan.png")}
+                />
+              </TouchableOpacity>
+            </View>
+          </Camera>
+        ) : null}
       </View>
     );
   }

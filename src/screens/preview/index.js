@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Text,
   View,
-  Button,
   Image,
   ActivityIndicator,
-  Alert,
   TouchableWithoutFeedback,
   SafeAreaView,
   ScrollView,
@@ -14,18 +12,14 @@ import {
 import Loading from "../../components/Loading";
 
 import { getRecipes } from "../../store/recipes/actions";
-
-import { removeUrl } from "../../store/labels/actions";
-import { removeNameOfProduct } from "../../store/labels/actions";
 import { removeLabels } from "../../store/labels/actions";
-import { removeMessage } from "../../store/labels/actions";
 
 import { selectLabels } from "../../store/labels/selectors";
-import { selectMessage } from "../../store/labels/selectors";
 import { selectNameOfProduct } from "../../store/labels/selectors";
 import { selectRecipes } from "../../store/recipes/selectors";
+import { selectAppLoading } from "../../store/appState/selectors";
 
-import { green, darkGreen, blue, lightGreen, darkBlue } from "../../colours";
+import { green, darkGreen, blue, lightGreen } from "../../colours";
 
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
@@ -35,12 +29,11 @@ export default function index({ route, navigation }) {
   const dispatch = useDispatch();
 
   const labels = useSelector(selectLabels);
-  const message = useSelector(selectMessage);
   const nameOfProduct = useSelector(selectNameOfProduct);
   const recipes = useSelector(selectRecipes);
+  const isLoading = useSelector(selectAppLoading);
 
   const [foodLabel, setFoodLabel] = useState("");
-  const [loading, setLoading] = useState(false);
   const [allLabels, setAllLabels] = useState(null);
 
   const [fontsLoaded] = useFonts({
@@ -56,43 +49,28 @@ export default function index({ route, navigation }) {
 
   function fetchRecipes(event, foodLabel) {
     event.persist();
-    setLoading(true);
     dispatch(getRecipes(foodLabel));
   }
 
   useEffect(() => {
-    if (recipes && recipes.message) {
-      setLoading(false);
-      Alert.alert(recipes.message);
-      dispatch(removeMessage());
-    } else if (recipes && loading) {
-      setLoading(false);
+    if (recipes && isLoading) {
       navigation.navigate("Recipes");
     }
   }, [recipes]);
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
-  }
-
-  if (message) {
-    Alert.alert(message);
-    dispatch(removeMessage());
   }
 
   function goToBarcodeScanner() {
     setFoodLabel("");
     dispatch(removeLabels());
-    dispatch(removeUrl());
-    dispatch(removeNameOfProduct());
     navigation.navigate("BarcodeScanner");
   }
 
   function goToCamera() {
     setFoodLabel("");
     dispatch(removeLabels());
-    dispatch(removeUrl());
-    dispatch(removeNameOfProduct());
     navigation.navigate("Camera");
   }
 
@@ -113,10 +91,6 @@ export default function index({ route, navigation }) {
       }
     }
   }
-
-  console.log(allLabels);
-
-  console.log("what is foodlabel", foodLabel);
 
   return (
     <SafeAreaView

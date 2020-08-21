@@ -2,24 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import Loading from "../../components/Loading";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  Alert,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
 
 import { fetchBarcodeLabels } from "../../store/labels/actions";
-import { removeLabels } from "../../store/labels/actions";
-import { removeMessage } from "../../store/labels/actions";
-import { removeRecipes } from "../../store/recipes/actions";
 
 import { selectUrl } from "../../store/labels/selectors";
 import { selectLabels } from "../../store/labels/selectors";
-import { selectMessage } from "../../store/labels/selectors";
+import { selectAppLoading } from "../../store/appState/selectors";
+import { selectMessage } from "../../store/appState/selectors";
 
-import { blue, lightBrown, lightBlue, green, darkBlue } from "../../colours";
+import { blue, green } from "../../colours";
 import { useFonts, Alata_400Regular } from "@expo-google-fonts/alata";
 const alata = "Alata_400Regular";
 
@@ -30,16 +22,10 @@ export default function BarcodeScanner({ navigation }) {
   const [fontColor, setFontColor] = useState(blue);
   const imageUri = useSelector(selectUrl);
   const labels = useSelector(selectLabels);
+  const isLoading = useSelector(selectAppLoading);
   const message = useSelector(selectMessage);
   const [fontsLoaded] = useFonts({ Alata_400Regular });
   const [scanner, setScanner] = useState(true);
-
-  if (message) {
-    Alert.alert(message);
-    dispatch(removeLabels());
-    dispatch(removeMessage());
-    dispatch(removeRecipes());
-  }
 
   useEffect(() => {
     setScanner(true);
@@ -56,9 +42,10 @@ export default function BarcodeScanner({ navigation }) {
     dispatch(fetchBarcodeLabels(data));
     setScanned(true);
   };
-
+  console.log("what is scanned?", scanned);
+  console.log("what is scanner", scanner);
   useEffect(() => {
-    if (scanned && imageUri && !message && labels) {
+    if (scanned && imageUri && labels) {
       setScanned(false);
       setScanner(false);
       navigation.navigate("Preview", { imageUri });
@@ -74,6 +61,10 @@ export default function BarcodeScanner({ navigation }) {
 
   if (!fontsLoaded) {
     return <Loading />;
+  }
+
+  if (isLoading) {
+    return <Loading color={blue} />;
   }
 
   return (
@@ -99,7 +90,10 @@ export default function BarcodeScanner({ navigation }) {
       {scanner ? (
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
+          style={[
+            StyleSheet.absoluteFillObject,
+            { marginTop: message ? 70 : 0 },
+          ]}
         />
       ) : null}
 

@@ -18,3 +18,5 @@ export const darkBrown = "#3E2600";
 export const lightRed = "#DF6750";
 export const red = "#a53f2b";
 export const darkRed = "#6F2A1D";
+
+export const yellow = "#ffd569";

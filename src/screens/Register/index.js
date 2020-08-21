@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -49,16 +50,14 @@ export default function Register({ navigation }) {
       <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: green }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.register}>
-            <View
+            <Image
               style={{
-                width: 350,
-                height: 350,
-                backgroundColor: brown,
-                borderRadius: 175,
-                marginTop: -10,
+                marginTop: -46,
+                width: 400,
+                height: 400,
               }}
-            ></View>
-
+              source={require("../../images/logoNiles.gif")}
+            />
             <TextInput
               style={[
                 styles.text,

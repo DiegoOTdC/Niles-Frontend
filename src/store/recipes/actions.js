@@ -1,5 +1,10 @@
 import axios from "axios";
 import { server } from "@env";
+import {
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../appState/actions";
 
 export const FETCH_RECIPES_SUCCESS = "FETCH_RECIPES_SUCCESS";
 export const REMOVE_RECIPES_SUCCESS = "REMOVE_RECIPES_SUCCESS";
@@ -15,10 +20,26 @@ export const removeRecipes = () => ({
 
 export const getRecipes = (foodLabel) => {
   return async (dispatch, getState) => {
-    const response = await axios.post(`${server}/recipes`, {
-      foodLabel,
-    });
+    try {
+      dispatch(appLoading());
+      const response = await axios.post(`${server}/recipes`, {
+        foodLabel,
+      });
 
-    dispatch(fetchRecipes(response.data));
+      if (response && response.data.recipes.message) {
+        dispatch(
+          showMessageWithTimeout("warning", response.data.recipes.message, 3000)
+        );
+      } else {
+        dispatch(fetchRecipes(response.data));
+      }
+      dispatch(appDoneLoading());
+    } catch (e) {
+      console.log(e);
+      dispatch(
+        showMessageWithTimeout("danger", "Sorry, something went wrong!", 3000)
+      );
+      dispatch(appDoneLoading());
+    }
   };
 };

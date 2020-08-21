@@ -35,6 +35,15 @@ And then it would really start to feel like a great app. But to make it even bet
 - Edamam Recipe API
 - Open Food Facts API
 
+## Git
+During this project I also learned how to use git properly:
+- creating new branches when implementing new features
+- regular and clear commit message
+- pull requests with summary
+
+## History of pull requests
+
+
 ## Project Board
 
 Go to [project board](<https://github.com/users/DiegoOTdC/projects/1>)

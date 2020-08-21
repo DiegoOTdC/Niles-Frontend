@@ -12,6 +12,7 @@
     "@expo-google-fonts/alfa-slab-one": "^0.1.0",
     "@expo-google-fonts/great-vibes": "^0.1.0",
     "@expo-google-fonts/inter": "^0.1.0",
+    "@expo-google-fonts/poppins": "^0.1.0",
     "@expo-google-fonts/rochester": "^0.1.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.7.3",

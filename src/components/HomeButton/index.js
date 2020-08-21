@@ -30,7 +30,7 @@ export default function HomeButton({
       >
         <Text
           style={{
-            top: "35%",
+            top: "40%",
             color: color,
             fontSize: 18,
             fontFamily: font,

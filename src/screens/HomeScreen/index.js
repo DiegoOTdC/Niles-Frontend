@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
 import HomeButton from "../../components/HomeButton";
 import { AppLoading } from "expo";
 
@@ -18,12 +18,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectToken } from "../../store/user/selectors";
 import { selectUser } from "../../store/user/selectors";
 import { showMessageWithTimeout } from "../../store/appState/actions";
+import { logOut } from "../../store/user/actions";
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
   const [text, setText] = useState(false);
+  const [logout, setLogout] = useState(false);
+  console.log("logout", logout);
 
   const [fontsLoaded] = useFonts({
     AlfaSlabOne_400Regular,
@@ -32,12 +35,13 @@ export default function HomeScreen({ navigation }) {
   });
 
   useEffect(() => {
+    setLogout(false);
     setTimeout(() => {
       setText(true);
     }, 3000);
   }, []);
 
-  if (!token) {
+  if (!token && !logout) {
     dispatch(
       showMessageWithTimeout(
         "danger",
@@ -122,18 +126,26 @@ export default function HomeScreen({ navigation }) {
               alignItems: "flex-end",
             }}
           >
-            <Text
-              style={{
-                fontFamily: alata,
-                fontSize: 20,
-                color: green,
-                backgroundColor: brown,
-                borderRadius: 25,
-                paddingHorizontal: 10,
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setLogout(true);
+                navigation.navigate("Login");
+                dispatch(logOut());
               }}
             >
-              LOGOUT
-            </Text>
+              <Text
+                style={{
+                  fontFamily: alata,
+                  fontSize: 20,
+                  color: green,
+                  backgroundColor: brown,
+                  borderRadius: 25,
+                  paddingHorizontal: 10,
+                }}
+              >
+                LOGOUT
+              </Text>
+            </TouchableWithoutFeedback>
           </View>
         ) : null}
       </View>

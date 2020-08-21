@@ -11,19 +11,16 @@ import RecipeDetails from "../screens/RecipeDetails";
 import Register from "../screens/Register";
 import Login from "../screens/Login";
 import MessageBox from "../components/MessageBox";
-import { useSelector } from "react-redux";
-import { selectToken } from "../store/user/selectors";
 
 export default function StackNavigator() {
   const Stack = createStackNavigator();
-  const token = useSelector(selectToken);
 
   return (
     <NavigationContainer>
       <MessageBox />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!token ? <Stack.Screen name="Login" component={Login} /> : null}
-        {!token ? <Stack.Screen name="Register" component={Register} /> : null}
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
         <Stack.Screen name="Camera" component={CameraScreen} />

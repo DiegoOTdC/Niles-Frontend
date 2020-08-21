@@ -48,4 +48,4 @@ Go to [datamodel](<https://dbdiagram.io/d/5f3152ef08c7880b65c5baf2>)
 
 ## Backend
 
-Link to the [backend](<https://github.com/DiegoOTdC/Niles-backend>)
+Go to the [backend](<https://github.com/DiegoOTdC/Niles-backend>)

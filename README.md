@@ -12,7 +12,11 @@ Since they both work with labels, the user is then able to select the label that
 **Login & Register** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Homepage**                                     
 ![login/register Screen](Niles-Login&Register.gif) **=>** ![Homepage Screen](Niles-Homepage.gif) 
 
-![Camera Screen](Niles-Camera.gif)![Barcode Scanner Screen](Niles-BarcodeScanner.gif) ![Recipes Screen](Niles-Recipes.gif) ![Recipes Details Screen](Niles-RecipeDetails.gif)
+**Scan product** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Scan Barcode** 
+![Camera Screen](Niles-Camera.gif)![Barcode Scanner Screen](Niles-BarcodeScanner.gif) 
+
+**Recipes** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Recipe Details** 
+![Recipes Screen](Niles-Recipes.gif) ![Recipes Details Screen](Niles-RecipeDetails.gif)
 
 ## Upcoming features
 

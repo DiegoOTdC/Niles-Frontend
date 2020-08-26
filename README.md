@@ -7,17 +7,17 @@
 <a name="TableOfContents"/> 
 
 ## Table of Content
-- [Intro](#Intro)
-- [Table of Contents](#TableOfContents)
-- [Personal Goals](#PersonalGoals)
-- [MVP](#MVP)
-- [Upcoming Features](#UpcomingFeatures)
-- [Screens](#Screens)
-- [Components](#Components)
+- [Intro](#niles-the-digital-manservant)
+- [Table of Contents](#table-of-content)
+- [Personal Goals](#personal-goals)
+- [MVP](#mvp)
+- [Upcoming Features](#upcoming-features)
+- [Screens](#screens)
+- [Components](#components)
 - [Tech Used](#tech-used)
-- [Git](#Git)
-- [History of Pull Requests](#HistoryPullRequests)
-- [Important Links](#ImportantLinks)
+- [Git](#git)
+- [History of Pull Requests](#history-of-pull-requests)
+- [Important Links](#important-links)
 
 <a name="PersonalGoals"/> 
 

@@ -53,18 +53,12 @@ During this project I also learned how to use git properly:
 ## History of pull requests
 
 
-## Project Board
+## Important links
 
-Go to [project board](<https://github.com/users/DiegoOTdC/projects/1>)
+- [project board](<https://github.com/users/DiegoOTdC/projects/1>)
 
-## Wireframe
+- [wireframe](<https://wireframepro.mockflow.com/view/M66f4c119388556d53ef8602ab0b386281597043905404#/page/De36801225c9e96e06665bd016a7d83b0>)
 
-Go to [wireframe](<https://wireframepro.mockflow.com/view/M66f4c119388556d53ef8602ab0b386281597043905404#/page/De36801225c9e96e06665bd016a7d83b0>)
+- [datamodel](<https://dbdiagram.io/d/5f3152ef08c7880b65c5baf2>)
 
-## Datamodel
-
-Go to [datamodel](<https://dbdiagram.io/d/5f3152ef08c7880b65c5baf2>)
-
-## Backend
-
-Go to the [backend](<https://github.com/DiegoOTdC/Niles-backend>)
+- [backend](<https://github.com/DiegoOTdC/Niles-backend>)

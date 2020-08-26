@@ -51,7 +51,25 @@ During this project I also learned how to use git properly:
 - pull requests with summary
 
 ## History of pull requests
+**Frontend**   
+1. [Feat Image Recognition](https://github.com/DiegoOTdC/Niles-Frontend/pull/1)   
+2. [Feat Render Recipes](https://github.com/DiegoOTdC/Niles-Frontend/pull/2)
+3. [Feat Barcode Scanner](https://github.com/DiegoOTdC/Niles-Frontend/pull/3)
+4. [Feat Register and Login](https://github.com/DiegoOTdC/Niles-Frontend/pull/4)
+5. [Change Remove Cleanup](https://github.com/DiegoOTdC/Niles-Frontend/pull/5)
+6. [Styling](https://github.com/DiegoOTdC/Niles-Frontend/pull/6)
+7. [AppState](https://github.com/DiegoOTdC/Niles-Frontend/pull/7)
+8. [Fix Camera Error](https://github.com/DiegoOTdC/Niles-Frontend/pull/8)
+9. [Add GIFs of app for Readme](https://github.com/DiegoOTdC/Niles-Frontend/pull/9)
+10. [Change GIFs for Readme](https://github.com/DiegoOTdC/Niles-Frontend/pull/10)
 
+**Backend**  
+1. [Feat Image Recognition](https://github.com/DiegoOTdC/Niles-backend/pull/2) 
+2. [Feat Barcode Scanner](https://github.com/DiegoOTdC/Niles-backend/pull/3) 
+3. [Feat Register and Login](https://github.com/DiegoOTdC/Niles-backend/pull/4) 
+4. [Delete config.json](https://github.com/DiegoOTdC/Niles-backend/pull/5) 
+5. [Revert delete config.json](https://github.com/DiegoOTdC/Niles-backend/pull/6) 
+6. [Change remove cleanup](https://github.com/DiegoOTdC/Niles-backend/pull/7) 
 
 ## Important links
 

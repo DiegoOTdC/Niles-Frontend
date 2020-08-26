@@ -62,14 +62,14 @@ And then it would really start to feel like a great app. But to make it even bet
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Go to Top](#Intro)
 ## Screens
-- [Login](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Login)
-- [Register](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Register)
-- [Home](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/HomeScreen)
-- [Camera](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Camera)
-- [Barcode Scanner](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/BarcodeScanner)
-- [Preview](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Preview)
-- [Recipes](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Recipes)
-- [Recipe Details](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/RecipeDetails)
+- [Login](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Login/index.js)
+- [Register](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Register/index.js)
+- [Home](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/HomeScreen/index.js)
+- [Camera](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Camera/index.js)
+- [Barcode Scanner](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/BarcodeScanner/index.js)
+- [Preview](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Preview/index.js)
+- [Recipes](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/Recipes/index.js)
+- [Recipe Details](https://github.com/DiegoOTdC/Niles-Frontend/tree/development/src/screens/RecipeDetails/index.js)
 
 <a name="Components"/> 
 

@@ -27,7 +27,7 @@ Right now I have a M(inimal) V(iable) P(roduct) ready, in which you can register
 Since they both work with labels, the user is then able to select the label that fits their product best with which the app will then search for and display recipes, thanks to Edamam Recipe API. Clicking on a recipe will land you on the recipe's details page where you can read and cross off the ingredients. 
 
 **Login & Register** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Homepage**                                     
-<div><img src="Niles-Login&Register.gif" width="auto" height=750 /> <img src="Niles-HomePage.gif" width="auto" height=750 /></div>
+<div align="center"><img src="Niles-Login&Register.gif" width="40%" /> <img src="Niles-Homepage.gif" width="40%" /></div>
 <div><img src="Niles-Camera.gif" width="auto" height=750 /> <img src="Niles-BarcodeScanner.gif" width="auto" height=750 /></div>
 <div><img src="Niles-Recipes.gif" width="auto" height=750 /> <img src="Niles-RecipeDetails.gif" width="auto" height=750 /></div>
 

@@ -28,8 +28,8 @@ Since they both work with labels, the user is then able to select the label that
 
 **Login & Register** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Homepage**                                     
 <div align="center"><img src="Niles-Login&Register.gif" width="40%" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="Niles-Homepage.gif" width="40%" /></div>
-<div><img src="Niles-Camera.gif" width="auto" height=750 /> <img src="Niles-BarcodeScanner.gif" width="auto" height=750 /></div>
-<div><img src="Niles-Recipes.gif" width="auto" height=750 /> <img src="Niles-RecipeDetails.gif" width="auto" height=750 /></div>
+<div align="center"><img src="Niles-Camera.gif" width="40%" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="Niles-BarcodeScanner.gif" width="40%" /></div>
+<div align="center"><img src="Niles-Recipes.gif" width="40%" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="Niles-RecipeDetails.gif" width="40%" /></div>
 
 ![login/register Screen](Niles-Login&Register.gif) **=>** ![Homepage Screen](Niles-Homepage.gif) 
 

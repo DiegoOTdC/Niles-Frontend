@@ -14,7 +14,7 @@
 - [Upcoming Features](#UpcomingFeatures)
 - [Screens](#Screens)
 - [Components](#Components)
-- [Tech Used](#TechUsed)
+- [Tech Used](#tech-used)
 - [Git](#Git)
 - [History of Pull Requests](#HistoryPullRequests)
 - [Important Links](#ImportantLinks)

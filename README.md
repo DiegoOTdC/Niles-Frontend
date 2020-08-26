@@ -5,7 +5,7 @@
 ## Table of Content
 - [Intro](#Intro)
 - [Table of Contents](#TableOfContents)
-- [Personal Goals](#Personal Goals)
+- [Personal Goals](#PersonalGoals)
 - [MVP](#MVP)
 - [Upcoming Features](#UpcomingFeatures)
 - [Pages](#Pages)

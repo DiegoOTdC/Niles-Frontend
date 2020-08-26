@@ -1,6 +1,10 @@
+<a name="Intro"/> 
+
 # Niles "The Digital Manservant"
 
 **Niles - the Digital Manservant** is an app build with the intention to make life a little bit easier. As a person who loves to cook, but who is getting tired of having to make shopping lists and finding recipes with what I have in store. I wanted to create an app that helps me with this process, so I have more time to spend on actual cooking. (or other things)
+
+<a name="TableOfContents"/> 
 
 ## Table of Content
 - [Intro](#Intro)
@@ -14,7 +18,12 @@
 - [Git](#Git)
 - [History of Pull Requests](#HistoryPullRequests)
 - [Important Links](#ImportantLinks)
-- [What did we learn or find challenging](#Challenges)
+
+<a name="PersonalGoals"/> 
+
+## Personal Goals
+
+<a name="MVP"/> 
 
 ## MVP
 
@@ -30,6 +39,8 @@ Since they both work with labels, the user is then able to select the label that
 **Recipes** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Recipe Details**   
 ![Recipes Screen](Niles-Recipes.gif) **=>** ![Recipes Details Screen](Niles-RecipeDetails.gif)
 
+<a name="UpcomingFeatures"/> 
+
 ## Upcoming features
 
 First off, I want to add on what I already have. Creating select options to filter the recipes for example, or perhaps give the user the option to also search for recipes by just plain typing of the words.
@@ -39,6 +50,16 @@ I also really want to add a kind of digital storage space, where as a user you c
 Next I also want to create a more ellaborate shopping list (instead of just crossing of the ingredients)
 
 And then it would really start to feel like a great app. But to make it even better I would like to add a kind of food diary where you can keep track of what you eat. And where Niles could give you tips on what to eat, since he will know what might be missing from your diet.
+
+<a name="Pages"/> 
+
+## Pages
+
+<a name="Components"/> 
+
+## Components
+
+<a name="TechUsed"/> 
 
 ## Tech used
 
@@ -56,11 +77,15 @@ And then it would really start to feel like a great app. But to make it even bet
 - Edamam Recipe API
 - Open Food Facts API
 
+<a name="Git"/> 
+
 ## Git
 During this project I also learned how to use git properly:
 - creating new branches when implementing new features
 - regular and clear commit message
 - pull requests with summary
+
+<a name="HistoryPullRequests"/> 
 
 ## History of pull requests
 **Frontend**   
@@ -82,6 +107,8 @@ During this project I also learned how to use git properly:
 4. [Delete config.json](https://github.com/DiegoOTdC/Niles-backend/pull/5) 
 5. [Revert delete config.json](https://github.com/DiegoOTdC/Niles-backend/pull/6) 
 6. [Change remove cleanup](https://github.com/DiegoOTdC/Niles-backend/pull/7) 
+
+<a name="ImportantLinks"/> 
 
 ## Important links
 
